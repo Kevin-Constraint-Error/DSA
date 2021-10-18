@@ -34,7 +34,7 @@ public class Network {
 		String splitBy = ",";
      
         //Creating Scanner instance to read File in Java
-        Scanner scnr = new Scanner(new File("C:\\Users\\Poxito\\Desktop\\2. Kurtsoa\\DSA\\ProgrammingProject\\cliquesDSA2021\\" + path));//"C:\Users\Poxito\Desktop\2. Kurtsoa\DSA\ProgrammingProject\cliquesDSA2021\peopleG612054.txt" +
+        Scanner scnr = new Scanner(new File("C:\\Users\\Kevin\\Desktop\\cliquesDSA2021\\" + path));//"C:\Users\Poxito\Desktop\2. Kurtsoa\DSA\ProgrammingProject\cliquesDSA2021\peopleG612054.txt" +
         
 		while (scnr.hasNextLine()) {  
 			line = scnr.nextLine();
@@ -50,7 +50,7 @@ public class Network {
 	 * @throws FileNotFoundException
 	 */
 	public void printData() throws FileNotFoundException {
-		String writePath = "C:\\Users\\Poxito\\Desktop\\2. Kurtsoa\\DSA\\ProgrammingProject\\NetworkInformation1.txt";
+		String writePath = "C:\\Users\\Kevin\\Desktop\\NetworkInformation1.txt";
 		
 		File wrname = new File (writePath);
 		PrintWriter outFile = new PrintWriter (wrname);
@@ -75,7 +75,7 @@ public class Network {
 		String splitBy = ",";
      
         //Creating Scanner 
-		Scanner scnr = new Scanner(new File("C:\\Users\\Poxito\\Desktop\\2. Kurtsoa\\DSA\\ProgrammingProject\\cliquesDSA2021\\" + path));
+		Scanner scnr = new Scanner(new File("C:\\Users\\Kevin\\Desktop\\" + path));
         
         line = scnr.nextLine();
         
@@ -107,7 +107,7 @@ public class Network {
             }
         }
         
-        String writePath = "C:\\Users\\Poxito\\Desktop\\2. Kurtsoa\\DSA\\ProgrammingProject\\FriendsYouLookedFor.txt";
+        String writePath = "C:\\Users\\Kevin\\Desktop\\FriendsYouLookedFor.txt";
         File wrname = new File (writePath);
         PrintWriter outFile = new PrintWriter (wrname);
         
@@ -185,7 +185,7 @@ public class Network {
 		String line = "";  
 		Friend f1;
      
-        Scanner scnr = new Scanner(new File("C:\\Users\\Poxito\\Desktop\\2. Kurtsoa\\DSA\\ProgrammingProject\\cliquesDSA2021\\residential.txt"));
+        Scanner scnr = new Scanner(new File("C:\\Users\\Kevin\\Desktop\\residential.txt"));
         
 		while (scnr.hasNextLine()) {  
 			line = scnr.nextLine();
@@ -318,7 +318,7 @@ public class Network {
 					}
 					break;
 				case 5 :
-					Graph graph = new Graph(8,19, "C:\\Users\\Poxito\\Desktop\\2. Kurtsoa\\DSA\\graph8.txt", "C:\\Users\\Poxito\\Desktop\\2. Kurtsoa\\DSA\\graph88.txt","Jon232");
+					Graph graph = new Graph(8,19, "C:\\Users\\Kevin\\Desktop\\graph8.txt", "C:\\Users\\Kevin\\Desktop\\graph88.txt","Jon232");
 					
 					System.out.println("Enter 1 if you want to find the shortest chain betwenn two users");
 					System.out.println("Enter 2 if you want to find the largest chain between two users");
