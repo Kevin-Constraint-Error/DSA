@@ -16,21 +16,23 @@ public class Network {
 	private Stack<Friend> friendStack;
 	
 	
-	// WE HAVE AN ARRAYLIST OF NETWORK
-	// WE HAVE A STACK OF FRIENDS
+
 	public Network() {
-		ourNetwork = new ArrayList<Object>();
-		friendStack = new Stack<Friend>();
+		ourNetwork = new ArrayList<Object>();			// Network = array of people
+		friendStack = new Stack<Friend>();				// Stack for friends
 	}
 	
-	//RETURNS OUR NETWORK
+	/**
+	 * Network getter
+	 * @return
+	 */
 	public static ArrayList<Object> getOurNetwork() {
 		return ourNetwork;
 	}
 	
 	/**
-	 * 
-	 * @param path
+	 * Scans and reads people info from file input and stores it in the network
+	 * @param path Filename
 	 * @throws IOException
 	 */
 	
@@ -39,12 +41,11 @@ public class Network {
 		String line = "";  
 		String splitBy = ",";
      
-		//CREATINF SCANNER INSTANCE TO READ FILE IN JAVA
         Scanner scnr = new Scanner(new File("C:\\Users\\Kevin\\Desktop\\cliquesDSA2021\\" + path));
         
 		while (scnr.hasNextLine()) {
 			line = scnr.nextLine();
-			String[] info = line.split(splitBy); // WE USE COMMA AS A SEPARATOR
+			String[] info = line.split(splitBy); 	// Comma used as separator in input files 
 			Friend user = new Friend(info[0], info[1], info[2], info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10]);
 			ourNetwork.add(user);
 		}

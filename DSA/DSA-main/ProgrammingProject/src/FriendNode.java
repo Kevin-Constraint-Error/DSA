@@ -1,9 +1,9 @@
 
 public class FriendNode {
 	
-	protected String film;
-	protected String users;
-	protected FriendNode firstChild, siblings;
+	private String film;
+	private String users;
+	private FriendNode firstChild, siblings;
 	
 	
 	public FriendNode(){

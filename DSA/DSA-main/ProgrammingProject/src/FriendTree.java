@@ -1,9 +1,9 @@
 import java.util.*;
 
 public class FriendTree {
-	protected int numberOfClasses;
-	protected String classes;
-	protected FriendNode root;
+	private int numberOfClasses;
+	private String classes;
+	private FriendNode root;
 	
 	public FriendTree(FriendNode friendNode) {
 		numberOfClasses = 0;

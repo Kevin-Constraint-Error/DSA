@@ -7,9 +7,9 @@ public class Graph {
 	
 	private final int V;
 	private int E;
-	protected Bag<Integer>[] adj;
-	protected Hashtable<String, Integer> ht = new Hashtable<String, Integer>();
-	protected ArrayList<Friend> al = new ArrayList<Friend>();
+	private Bag<Integer>[] adj;
+	private Hashtable<String, Integer> ht = new Hashtable<String, Integer>();
+	private ArrayList<Friend> al = new ArrayList<Friend>();
 	
 	public Graph(int V) {
 		if(V<0) throw new IllegalArgumentException("Number of vertices must be positive");
