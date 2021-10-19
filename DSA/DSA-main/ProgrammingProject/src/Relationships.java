@@ -1,8 +1,8 @@
 
 public class Relationships extends Object{
 
-	protected String friend1;
-	protected String friend2;
+	private String friend1;
+	private String friend2;
 	
 	public Relationships(String friend1, String friend2) {
 		this.friend1 = friend1;

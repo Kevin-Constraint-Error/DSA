@@ -2,17 +2,17 @@ import java.util.ArrayList;
 import java.lang.Comparable;
 
 public class Friend extends Object implements Comparable{
-	protected String id;
-	protected String name;
-	protected String lastname;
-	protected String birthDate;
-	protected String gender;
-	protected String birthPlace;
-	protected String home;
-	protected String studiedAt;
-	protected String workPlaces;
-	protected String films;
-	protected String groupCode;
+	private String id;
+	private String name;
+	private String lastname;
+	private String birthDate;
+	private String gender;
+	private String birthPlace;
+	private String home;
+	private String studiedAt;
+	private String workPlaces;
+	private String films;
+	private String groupCode;
 	
 	
 	public Friend(String id) {

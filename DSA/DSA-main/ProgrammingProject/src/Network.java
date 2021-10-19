@@ -12,14 +12,18 @@ import java.io.FileInputStream.*;
 
 public class Network {
 
-	protected static ArrayList<Object> ourNetwork;
-	protected Stack<Friend> friendStack;
+	private static ArrayList<Object> ourNetwork;
+	private Stack<Friend> friendStack;
 	
+	
+	// WE HAVE AN ARRAYLIST OF NETWORK
+	// WE HAVE A STACK OF FRIENDS
 	public Network() {
 		ourNetwork = new ArrayList<Object>();
 		friendStack = new Stack<Friend>();
 	}
 	
+	//RETURNS OUR NETWORK
 	public static ArrayList<Object> getOurNetwork() {
 		return ourNetwork;
 	}
@@ -29,12 +33,14 @@ public class Network {
 	 * @param path
 	 * @throws IOException
 	 */
+	
+	
 	public void read_info(String path) throws IOException {
 		String line = "";  
 		String splitBy = ",";
      
         //Creating Scanner instance to read File in Java
-        Scanner scnr = new Scanner(new File("C:\\Users\\Kevin\\Desktop\\cliquesDSA2021\\" + path));//"C:\Users\Poxito\Desktop\2. Kurtsoa\DSA\ProgrammingProject\cliquesDSA2021\peopleG612054.txt" +
+        Scanner scnr = new Scanner(new File("C:\\Users\\Kevin\\Desktop\\cliquesDSA2021\\" + path));
         
 		while (scnr.hasNextLine()) {  
 			line = scnr.nextLine();
