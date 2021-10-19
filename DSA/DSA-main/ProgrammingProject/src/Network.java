@@ -39,12 +39,12 @@ public class Network {
 		String line = "";  
 		String splitBy = ",";
      
-        //Creating Scanner instance to read File in Java
+		//CREATINF SCANNER INSTANCE TO READ FILE IN JAVA
         Scanner scnr = new Scanner(new File("C:\\Users\\Kevin\\Desktop\\cliquesDSA2021\\" + path));
         
-		while (scnr.hasNextLine()) {  
+		while (scnr.hasNextLine()) {
 			line = scnr.nextLine();
-			String[] info = line.split(splitBy); // use comma as separator
+			String[] info = line.split(splitBy); // WE USE COMMA AS A SEPARATOR
 			Friend user = new Friend(info[0], info[1], info[2], info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10]);
 			ourNetwork.add(user);
 		}
@@ -55,6 +55,8 @@ public class Network {
 	 * 
 	 * @throws FileNotFoundException
 	 */
+	
+	// FUNCTION THAT PRINTS THE DATA
 	public void printData() throws FileNotFoundException {
 		String writePath = "C:\\Users\\Kevin\\Desktop\\NetworkInformation1.txt";
 		
@@ -76,6 +78,8 @@ public class Network {
 	 * @param path
 	 * @throws IOException
 	 */
+	
+	//FUNCTION THAT LOADS AN RELATIONSHIP
 	public void load_relationships(String path) throws IOException {
 		String line = "";  
 		String splitBy = ",";
@@ -100,11 +104,15 @@ public class Network {
 	 * @param press
 	 * @throws FileNotFoundException
 	 */
+	
+	// FUNCTION THAT PRINTS FRIENDS 
 	public void printFriends(String surname, int press) throws FileNotFoundException {
 		
 		Friend f1;
         boolean found = false;
         
+        
+        // WE PUSH THE FOUND FRIEND TO OUR FRIENDSTACK
         for(int i = 0; i < ourNetwork.size(); i++) {
             if(ourNetwork.get(i) instanceof Friend) {
                 if(((Friend) ourNetwork.get(i)).getLastname().equals(surname)) {
