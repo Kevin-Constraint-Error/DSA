@@ -12,14 +12,14 @@ import java.io.FileInputStream.*;
 
 public class Network {
 
-	private static ArrayList<Object> ourNetwork;
+	private static ArrayList<Object> ourNetwork;	// Stores friends and relationships (which is why we generalize type Object)
 	private Stack<Friend> friendStack;
 	
 	
 
 	public Network() {
-		ourNetwork = new ArrayList<Object>();			// Network = array of people
-		friendStack = new Stack<Friend>();				// Stack for friends
+		ourNetwork = new ArrayList<Object>();
+		friendStack = new Stack<Friend>();
 	}
 	
 	/**
@@ -31,7 +31,7 @@ public class Network {
 	}
 	
 	/**
-	 * Scans and reads people info from file input and stores it in the network
+	 * Scans and reads people's information from file input and stores it in the network
 	 * @param path Filename
 	 * @throws IOException
 	 */
@@ -53,18 +53,17 @@ public class Network {
 	}
 	
 	/**
-	 * 
+	 * Outputs network data into a new text file
 	 * @throws FileNotFoundException
 	 */
 	
-	// FUNCTION THAT PRINTS THE DATA
 	public void printData() throws FileNotFoundException {
 		String writePath = "C:\\Users\\Kevin\\Desktop\\NetworkInformation1.txt";
 		
 		File wrname = new File (writePath);
 		PrintWriter outFile = new PrintWriter (wrname);
 		
-		for(Object user : ourNetwork) {
+		for(Object user : ourNetwork) {								// Casts objects depending on instance and prints them accordingly
 			if(user instanceof Friend) {
 				outFile.println(((Friend) user).print());
 			}else {
@@ -75,12 +74,11 @@ public class Network {
 	}
 	
 	/**
-	 * 
-	 * @param path
+	 * Scans and reads people's mutual friendships from file input and stores it in the network
+	 * @param path Filename
 	 * @throws IOException
 	 */
 	
-	//FUNCTION THAT LOADS AN RELATIONSHIP
 	public void load_relationships(String path) throws IOException {
 		String line = "";  
 		String splitBy = ",";
@@ -100,20 +98,19 @@ public class Network {
 	}
 	
 	/**
-	 * 
+	 * Outputs network friends into a new text file
 	 * @param surname
 	 * @param press
 	 * @throws FileNotFoundException
 	 */
 	
-	// FUNCTION THAT PRINTS FRIENDS 
 	public void printFriends(String surname, int press) throws FileNotFoundException {
 		
 		Friend f1;
         boolean found = false;
         
         
-        // WE PUSH THE FOUND FRIEND TO OUR FRIENDSTACK
+        // Push found friends onto friend stack
         for(int i = 0; i < ourNetwork.size(); i++) {
             if(ourNetwork.get(i) instanceof Friend) {
                 if(((Friend) ourNetwork.get(i)).getLastname().equals(surname)) {
@@ -149,7 +146,7 @@ public class Network {
     }
 	
 	/**
-	 * 
+	 * Prints all people from network in console that live on the given city
 	 * @param city
 	 */
 	public void cityPeople(String city) {
@@ -165,7 +162,7 @@ public class Network {
 	}
 	
 	/**
-	 * 
+	 * First gathers all people from network that belong to the year range given, sorts them in a new array and prints them in console
 	 * @param year1
 	 * @param year2
 	 */
@@ -189,11 +186,7 @@ public class Network {
 	}
 	
 	/**
-	 *  recover the values of the 
-	 *  attributes name, surname, birthplace and studiedat of the people on the network 
-	 *  whose birthplace matches the hometown of the people who are described in 
-	 *  residential.txt. People whose birthplace/hometown is unknown do not affect the 
-	 *  result of this operation.
+	 *  Prints personal information from people located at residences matched in residential.txt
 	 * @throws IOException
 	 */
 	public void loadResidential() throws IOException {
@@ -228,8 +221,7 @@ public class Network {
 	}
 	
 	/**
-	 * This method prints in console the different classes. A class is a group of users that like exactly the 
-	 * same films.
+	 * Prints all different classes into console. A class is a group of users that like exactly the same films.
 	 */
 	public void usersIntoClasses() {
 		String profile = "";
@@ -264,13 +256,15 @@ public class Network {
 		try {  
 			Network Network = new Network();
 			
-			System.out.println("My Menu:");
-			System.out.println("1. Load people into the our network");
-			System.out.println("2. Load the relatioships between the people");
-			System.out.println("3. Print out the information of the people");
-			System.out.println("4. Search for any data about the person you wanna know, update that data if you want");
-			System.out.println("5. Search for the shortest or largest chain");
-			System.out.println("Enter -1 if you want to log out");
+			System.out.println("=-=-=-=-=-=");
+			System.out.println(" MAIN MENU:");
+			System.out.println("1. Import people into network");
+			System.out.println("2. Import relationships into network");
+			System.out.println("3. Export network data to file...");
+			System.out.println("4. Search and update information");
+			System.out.println("5. Calculate chain of people");
+
+			System.out.println("Select your option (-1 to exit):");
 			int number;
 			Scanner keyboard = new Scanner(System.in);
 			number = keyboard.nextInt();
@@ -291,12 +285,14 @@ public class Network {
 					Network.printData();
 					break;
 				case 4:
+					System.out.println("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+					System.out.println(" SEARCH AND UPDATE INFORMATION: ");
 					System.out.println("Enter 1 if you want to find the friends of a user by entering his/her surname");
 					System.out.println("Enter 2 if you want to know who were born on a certain city, you have to write the city");
 					System.out.println("Enter 3 if you want to know who were born in a period, enter the two dates");
 					System.out.println("Enter 4 if you want to know who was born in the town the people of residential.txt");
 					System.out.println("Enter 5 if you want to clasify the users with the same profiles into classes");
-					
+					System.out.println("Select your option: ");
 					int search = keyboard.nextInt();
 					switch(search) {
 					case 1 :
