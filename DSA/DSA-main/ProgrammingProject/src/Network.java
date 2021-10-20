@@ -263,14 +263,16 @@ public class Network {
 			System.out.println("3. Export network data to file...");
 			System.out.println("4. Search and update information");
 			System.out.println("5. Calculate chain of people");
+			System.out.println("0. Exit program...");
 
-			System.out.println("Select your option (-1 to exit):");
+
+			System.out.println("Select your option:");
 			int number;
 			Scanner keyboard = new Scanner(System.in);
 			number = keyboard.nextInt();
 			String path;
 			
-			while (number != -1) {
+			while (number != 0) {
 			
 				switch(number) {
 				case 1:
@@ -286,33 +288,40 @@ public class Network {
 					break;
 				case 4:
 					System.out.println("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
-					System.out.println(" SEARCH AND UPDATE INFORMATION: ");
-					System.out.println("Enter 1 if you want to find the friends of a user by entering his/her surname");
-					System.out.println("Enter 2 if you want to know who were born on a certain city, you have to write the city");
-					System.out.println("Enter 3 if you want to know who were born in a period, enter the two dates");
-					System.out.println("Enter 4 if you want to know who was born in the town the people of residential.txt");
-					System.out.println("Enter 5 if you want to clasify the users with the same profiles into classes");
-					System.out.println("Select your option: ");
+					System.out.println(" SEARCH AND UPDATE INFORMATION OF USERS: ");
+					System.out.println("1. Filter by lastname (friends of users with lastname)");
+					System.out.println("2. Filter by city");
+					System.out.println("3. Filter by time frame");
+					System.out.println("4. Filter by residents matched in residential.txt");
+					System.out.println("5. Filter by identical film classes");
+					System.out.println("Select your option > ");
 					int search = keyboard.nextInt();
 					switch(search) {
 					case 1 :
 						// 6
-						System.out.println("Enter a surname of a person that is in the network");
+						System.out.println("\nEnter lastname: ");
 						String surname = keyboard.next();
-						System.out.println("Enter 1 if you want print the information in the console, enter 0 if you want to print the information in a document");
+						System.out.println("\nSelect printing method: ");
+						System.out.println("0. Export to text file");
+						System.out.println("1. Print to console");
+						System.out.println("> ");
+
+
 						int press = keyboard.nextInt();
 						Network.printFriends(surname, press);
 						break;
 					case 2 :
 						//7
-						System.out.println("Enter a city to know who was born there");
+						System.out.println("\nEnter city > ");
 						String city = keyboard.next();
 						Network.cityPeople(city);
 						break;
 					case 3 :
 						//8
-						System.out.println("Enter two years, the years are two Integer");
+						System.out.println("\nEnter year of time frame beginning > ");
 						int date1 = keyboard.nextInt();
+						System.out.println("Enter year of time frame end > ");
+
 						int date2 = keyboard.nextInt();
 						Network.yearsPeople(date1, date2);
 						break;
@@ -331,9 +340,10 @@ public class Network {
 				case 5 :
 					Graph graph = new Graph(8,19, "C:\\Users\\Kevin\\Desktop\\graph8.txt", "C:\\Users\\Kevin\\Desktop\\graph88.txt","Jon232");
 					
-					System.out.println("Enter 1 if you want to find the shortest chain betwenn two users");
-					System.out.println("Enter 2 if you want to find the largest chain between two users");
-					System.out.println("Enter 3 if you want to know which groups have at least four members");
+					System.out.println("\nSelect chain: ");
+					System.out.println("1. Shortest chain between two given users");
+					System.out.println("2. Largest chain between two given users");
+					System.out.println("3. Search for groups with at least 4 members");
 				
 					int x = keyboard.nextInt();
 					switch(x) {
