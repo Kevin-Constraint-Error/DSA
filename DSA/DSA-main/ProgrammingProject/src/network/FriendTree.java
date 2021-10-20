@@ -1,3 +1,4 @@
+package network;
 import java.util.*;
 
 public class FriendTree {
