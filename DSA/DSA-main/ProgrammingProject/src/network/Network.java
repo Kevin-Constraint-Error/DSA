@@ -67,9 +67,9 @@ public class Network {
         
 		while (scnr.hasNextLine()) {
 			line = scnr.nextLine();
-			String[] info = line.split(splitBy); // Comma used as separator in input files 
-			if (info[0] != "idperson") // Avoids adding info template as an actual user
-				addUser(info[0], info[1], info[2], info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10]);
+			String[] input = line.split(splitBy); // Comma used as separator in input files 
+			if (input[0] != "idperson") // Avoids adding info template as an actual user
+				addUser(input[0], input[1], input[2], input[3], input[4], input[5], input[6], input[7], input[8], input[9], input[10]);
 		}
 		scnr.close();
 	}
@@ -80,6 +80,7 @@ public class Network {
 	 */
 	
 	public void exportData() throws FileNotFoundException {
+		// TODO maybe refers to just users and not friendships (ask)
 		String writePath = "C:\\Users\\Kevin\\Desktop\\NetworkInformation1.txt";
 		
 		File file = new File (writePath);
@@ -113,8 +114,11 @@ public class Network {
 		while (scnr.hasNextLine()) {  
 			line = scnr.nextLine();
 			String[] input = line.split(splitBy); // Comma used as separator in input files 
-			Relationships rel = new Relationships(input[0], input[1]);
-			ourNetwork.add(rel);
+			if ((input[0] != "friend1") || (input[1] != "friend2")) { // Avoids adding info template as an actual user
+				Relationships rel = new Relationships(input[0], input[1]);
+				ourNetwork.add(rel); 
+				// TODO split?
+			}
 		}
 		scnr.close();
 	}
