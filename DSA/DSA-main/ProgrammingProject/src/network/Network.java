@@ -81,7 +81,7 @@ public class Network {
 	
 	public void exportData() throws FileNotFoundException {
 		// TODO maybe refers to just users and not friendships (ask)
-		String writePath = "C:\\Users\\Kevin\\Desktop\\NetworkInformation1.txt";
+		String writePath = "C:\\Users\\Kevin\\Desktop\\NetworkUserdata.txt";
 		
 		File file = new File (writePath);
 		PrintWriter output = new PrintWriter (file);
@@ -143,7 +143,7 @@ public class Network {
             }
         }
         
-        String writePath = "C:\\Users\\Kevin\\Desktop\\FriendsYouLookedFor.txt";
+        String writePath = "C:\\Users\\Kevin\\Desktop\\NetworkReldata.txt";
         File file = new File (writePath);
         PrintWriter output = new PrintWriter (file);
         
