@@ -64,10 +64,12 @@ public class Network {
      
         Scanner scnr = new Scanner(new File("C:\\Users\\Kevin\\Desktop\\cliquesDSA2021\\" + path));
         
+        
 		while (scnr.hasNextLine()) {
 			line = scnr.nextLine();
 			String[] info = line.split(splitBy); // Comma used as separator in input files 
-			addUser(info[0], info[1], info[2], info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10]);
+			if (info[0] != "idperson") // Avoids adding info template as an actual user
+				addUser(info[0], info[1], info[2], info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10]);
 		}
 		scnr.close();
 	}
