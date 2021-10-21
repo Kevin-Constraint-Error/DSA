@@ -32,6 +32,26 @@ public class Network {
 	}
 	
 	/**
+	 * Adds user to the network with given parameters
+	 * @param id
+	 * @param name
+	 * @param lastname
+	 * @param birthdate
+	 * @param gender
+	 * @param birthplace
+	 * @param residence
+	 * @param studiedAt
+	 * @param workedAt
+	 * @param films
+	 * @param gpc
+	 */
+	public void addUser(String id, String name, String lastname, String birthdate, String gender, String birthplace, String residence, String studiedAt, String workedAt, String films, String gpc) {
+		Friend user = new Friend(id, name, lastname, birthdate, gender, birthplace, residence, studiedAt, workedAt, films, gpc);
+		ourNetwork.add(user);
+	}
+	
+	
+	/**
 	 * Scans and reads people's information from file input and stores it in the network
 	 * @param path Filename
 	 * @throws IOException
@@ -47,8 +67,7 @@ public class Network {
 		while (scnr.hasNextLine()) {
 			line = scnr.nextLine();
 			String[] info = line.split(splitBy); // Comma used as separator in input files 
-			Friend user = new Friend(info[0], info[1], info[2], info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10]);
-			ourNetwork.add(user);
+			addUser(info[0], info[1], info[2], info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10]);
 		}
 		scnr.close();
 	}
@@ -170,12 +189,12 @@ public class Network {
 	public void printbyTimeFrame(int year1, int year2) {
 		//the first year has to be the oldest year
 		ArrayList<Friend> friendList = new ArrayList<Friend>();
-		String[] userYear;
+		String[] years = new String[2];
 		
-		for(int i =  0; i < ourNetwork.size(); i++) {
+		for(int i = 0; i < ourNetwork.size(); i++) {
 			if(ourNetwork.get(i) instanceof Friend) {
-				userYear = ((Friend) ourNetwork.get(i)).getBirthDate().split("-");
-				if(Integer.parseInt(userYear[2]) > year1 && Integer.parseInt(userYear[2]) < year2) {
+				years = ((Friend) ourNetwork.get(i)).getBirthDate().split("-");
+				if(Integer.parseInt(years[0]) > year1 && Integer.parseInt(years[1]) < year2) {
 					friendList.add((Friend) ourNetwork.get(i));
 				}
 			}
@@ -187,7 +206,7 @@ public class Network {
 	}
 	
 	/**
-	 *  Prints personal information from people located at residences matched in residential.txt
+	 * Prints personal information from people located at residences matched in residential.txt
 	 * @throws IOException
 	 */
 	public void loadResidential() throws IOException {
@@ -196,56 +215,56 @@ public class Network {
      
         Scanner scnr = new Scanner(new File("C:\\Users\\Kevin\\Desktop\\residential.txt"));
         
+		System.out.println("\nUsers in residence: " );
 		while (scnr.hasNextLine()) {  
 			line = scnr.nextLine();
-			for(int i=0; i < ourNetwork.size();i++) {
+			for(int i = 0; i < ourNetwork.size(); i++) {
 				if(ourNetwork.get(i) instanceof Friend) {
 					if(((Friend) ourNetwork.get(i)).getId().equals(line)) {
-						friendStack.push((Friend) ourNetwork.get(i)); // his/her hometown will be used later
-						System.out.println("These are " + line + "'s atributes: \n" ); //name, surname, birthplace and studiedat
-						System.out.println(" Name: " + ((Friend)ourNetwork.get(i)).getName() + "\n Surname: " + ((Friend)ourNetwork.get(i)).getLastname() + "\n Birthplace: " + ((Friend)ourNetwork.get(i)).getBirthPlace() + "\n StudiedAt: " + ((Friend)ourNetwork.get(i)).getStudiedAt() + "\n");
+						friendStack.push((Friend) ourNetwork.get(i)); // their hometown will be used later
+						System.out.println("\n Name: " + ((Friend)ourNetwork.get(i)).getName() + "\n Surname: " + ((Friend)ourNetwork.get(i)).getLastname() + "\n Birthplace: " + ((Friend)ourNetwork.get(i)).getBirthPlace() + "\n Studied at: " + ((Friend)ourNetwork.get(i)).getStudiedAt() + "\n");
 					}
 				}
 			}
 		}
 		scnr.close();
-		//
+		
 		while(!friendStack.isEmpty()) {
         	f1 = friendStack.pop();
-        	for(int j = 0; j < ourNetwork.size();j++) {
+        	for(int j = 0; j < ourNetwork.size(); j++) {
         		if(ourNetwork.get(j) instanceof Friend) {
         			if(f1.getHome().equals(((Friend) ourNetwork.get(j)).getHome()))
             			System.out.println(((Friend) ourNetwork.get(j)).getId());
         		}
         	}
-        }
+        } //TODO check this ^
 	}
 	
 	/**
 	 * Prints all different classes into console. A class is a group of users that like exactly the same films.
 	 */
-	public void usersIntoClasses() {
-		String profile = "";
-		ArrayList<String> allProfiles = new ArrayList<String>();
+	public void printFilmClasses() {
+		String films = "";
+		ArrayList<String> filmGroups = new ArrayList<String>();
 		ArrayList<String> classes = new ArrayList<String>();
-		for(int i=0; i < ourNetwork.size();i++) {
+		for(int i = 0; i < ourNetwork.size(); i++) {
 			if(ourNetwork.get(i) instanceof Friend) {
-				profile = ((Friend) ourNetwork.get(i)).getFilms();
-				if(allProfiles.size()==0) {
-					allProfiles.add(profile);
+				films = ((Friend) ourNetwork.get(i)).getFilms();
+				if(filmGroups.size() == 0) {
+					filmGroups.add(films);
 					classes.add(((Friend) ourNetwork.get(i)).getName() + " " + ((Friend) ourNetwork.get(i)).getLastname());
-				}else if(!allProfiles.contains(profile)){
-					allProfiles.add(profile);
+				}else if(!filmGroups.contains(films)){
+					filmGroups.add(films);
 					classes.add(((Friend) ourNetwork.get(i)).getName() + " " + ((Friend) ourNetwork.get(i)).getLastname());
 				}else {
-					String adaptedClass = classes.get(allProfiles.indexOf(profile));
-					classes.set(allProfiles.indexOf(profile), adaptedClass + ", " + ((Friend) ourNetwork.get(i)).getName() + " " + ((Friend) ourNetwork.get(i)).getLastname());
+					String existingUsers = classes.get(filmGroups.indexOf(films)); // All users in the same class are in one string split by commas
+					classes.set(filmGroups.indexOf(films), existingUsers + ", " + ((Friend) ourNetwork.get(i)).getName() + " " + ((Friend) ourNetwork.get(i)).getLastname());
 				}
 			}
 		}
-		for(int i=0; i<classes.size(); i++) {
-			System.out.println("The films that the user like: " + allProfiles.get(i));
-			System.out.println("The users that are into the class: " + classes.get(i));
+		for(int i = 0; i < classes.size(); i++) {
+			System.out.println("\nFilms of interest: " + filmGroups.get(i));
+			System.out.println("Members: " + classes.get(i));
 		}
 	}
 	
@@ -332,7 +351,7 @@ public class Network {
 						break;
 					case 5 :
 						//10
-						Network.usersIntoClasses();
+						Network.printFilmClasses();
 						break;
 					default:
 						
