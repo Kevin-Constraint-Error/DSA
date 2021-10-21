@@ -16,7 +16,7 @@ public class Friend extends Object implements Comparable<Object> {
 	
 	
 	public Friend(String id) {
-		this.id=id;
+		this.id = id;
 	}
 	
 	public Friend(String id, String name, String lastname, String birthdate, String gender, String birthPlace, String home, String studiedAt, String workPlaces, String films, String groupCode) {
@@ -125,6 +125,19 @@ public class Friend extends Object implements Comparable<Object> {
 		String in = "User's Id: " + id + ", Name: " + name + ", Lastname: " + lastname + ", Birthdate: " + birthDate + ", Gender: " + gender + ", Birthplace: " + birthPlace + ", Home: " + home + ", Studied at: " + studiedAt + ", Work places: " + workPlaces + ", Films: " + films + ", Groupcode: " + groupCode;
 		return in;
 	}
+	
+	
+	// IS EQUAL IF THEIR ID'S MATCH
+	@Override
+	public boolean equals(Object o) {
+		Friend f1 = (Friend) o;
+		if (this.getId().equals(f1.getId()))
+			return true;
+		else
+			return false;
+	}
+	
+	
 	
 	
 	// FRIEND COMPARISON METHOD FOR SORTING ALGORITHM
