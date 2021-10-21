@@ -1,8 +1,7 @@
 package network;
-import java.util.ArrayList;
 import java.lang.Comparable;
 
-public class Friend extends Object implements Comparable{
+public class Friend extends Object implements Comparable<Object> {
 	private String id;
 	private String name;
 	private String lastname;
@@ -127,24 +126,29 @@ public class Friend extends Object implements Comparable{
 		return in;
 	}
 	
+	
+	// FRIEND COMPARISON METHOD FOR SORTING ALGORITHM
 	@Override
 	public int compareTo(Object o) {
-		Friend f1 = (Friend) o;
-		int ascii1 = this.getBirthPlace().charAt(0);
-		int ascii2 = f1.getBirthPlace().charAt(0);
-		if(ascii1 < ascii2) {
+		Friend f1 = (Friend) o;								// Object casting to Friend type
+		
+		// Sorting order: birthplace, lastname, name
+		
+		int charbp1 = this.getBirthPlace().charAt(0);
+		int charbp2 = f1.getBirthPlace().charAt(0);
+		if(charbp1 < charbp2) {
 			return -1;
-		}else if(ascii1 == ascii2) {
-			int ascii3 = this.getLastname().charAt(0);
-			int ascii4 = f1.getLastname().charAt(0);
-			if(ascii3 < ascii4) {
+		}else if(charbp1 == charbp2) {
+			int charln1 = this.getLastname().charAt(0);
+			int charln2 = f1.getLastname().charAt(0);
+			if(charln1 < charln2) {
 				return -1;
-			}else if(ascii3 == ascii4) {
-				int ascii5 = this.getName().charAt(0);
-				int ascii6 = f1.getName().charAt(0);
-				if(ascii5 < ascii6) {
+			}else if(charln1 == charln2) {
+				int charn1 = this.getName().charAt(0);
+				int charn2 = f1.getName().charAt(0);
+				if(charn1 < charn2) {
 					return -1;
-				}else if(ascii5 == ascii6) {
+				}else if(charn1 == charn2) {
 					return 0;
 				}else {
 					return 1;

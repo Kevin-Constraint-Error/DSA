@@ -38,7 +38,7 @@ public class Network {
 	 */
 	
 	
-	public void read_info(String path) throws IOException {
+	public void importUsers(String path) throws IOException {
 		String line = "";  
 		String splitBy = ",";
      
@@ -46,7 +46,7 @@ public class Network {
         
 		while (scnr.hasNextLine()) {
 			line = scnr.nextLine();
-			String[] info = line.split(splitBy); 	// Comma used as separator in input files 
+			String[] info = line.split(splitBy); // Comma used as separator in input files 
 			Friend user = new Friend(info[0], info[1], info[2], info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10]);
 			ourNetwork.add(user);
 		}
@@ -58,20 +58,20 @@ public class Network {
 	 * @throws FileNotFoundException
 	 */
 	
-	public void printData() throws FileNotFoundException {
+	public void exportData() throws FileNotFoundException {
 		String writePath = "C:\\Users\\Kevin\\Desktop\\NetworkInformation1.txt";
 		
-		File wrname = new File (writePath);
-		PrintWriter outFile = new PrintWriter (wrname);
+		File file = new File (writePath);
+		PrintWriter output = new PrintWriter (file);
 		
-		for(Object user : ourNetwork) {								// Casts objects depending on instance and prints them accordingly
+		for(Object user : ourNetwork) {	// Casts objects depending on instance and prints them accordingly
 			if(user instanceof Friend) {
-				outFile.println(((Friend) user).print());
+				output.println(((Friend) user).print());
 			}else {
-				outFile.println(((Relationships) user).print());
+				output.println(((Relationships) user).print());
 			}
 		}
-		outFile.close();
+		output.close();
 	}
 	
 	/**
@@ -80,7 +80,7 @@ public class Network {
 	 * @throws IOException
 	 */
 	
-	public void load_relationships(String path) throws IOException {
+	public void importRelationships(String path) throws IOException {
 		String line = "";  
 		String splitBy = ",";
      
@@ -91,66 +91,66 @@ public class Network {
         
 		while (scnr.hasNextLine()) {  
 			line = scnr.nextLine();
-			String[] rela = line.split(splitBy); // use comma as separator
-			Relationships userXuser = new Relationships(rela[0], rela[1]);
-			ourNetwork.add(userXuser);
+			String[] input = line.split(splitBy); // Comma used as separator in input files 
+			Relationships rel = new Relationships(input[0], input[1]);
+			ourNetwork.add(rel);
 		}
 		scnr.close();
 	}
 	
 	/**
 	 * Outputs network friends into a new text file
-	 * @param surname
+	 * @param lastname
 	 * @param press
 	 * @throws FileNotFoundException
 	 */
 	
-	public void printFriends(String surname, int press) throws FileNotFoundException {
+	public void exportRelationships(String lastname, int select) throws FileNotFoundException {
 		
-		Friend f1;
-        boolean found = false;
-        
+		Friend f1;      
         
         // Push found friends onto friend stack
         for(int i = 0; i < ourNetwork.size(); i++) {
             if(ourNetwork.get(i) instanceof Friend) {
-                if(((Friend) ourNetwork.get(i)).getLastname().equals(surname)) {
-                    friendStack.push((Friend) ourNetwork.get(i));found = false;
+                if(((Friend) ourNetwork.get(i)).getLastname().equals(lastname)) {
+                    friendStack.push((Friend) ourNetwork.get(i));
                 }
             }
         }
         
         String writePath = "C:\\Users\\Kevin\\Desktop\\FriendsYouLookedFor.txt";
-        File wrname = new File (writePath);
-        PrintWriter outFile = new PrintWriter (wrname);
+        File file = new File (writePath);
+        PrintWriter output = new PrintWriter (file);
         
         while(!friendStack.isEmpty()) {
         	f1 = friendStack.pop();
-        	for(int j = 0;j < ourNetwork.size();j++) {
+        	for(int j = 0; j < ourNetwork.size(); j++) {
         		if(ourNetwork.get(j) instanceof Relationships) {
-                    if(press == 1) {
+                    if(select == 1) {
                         if(((Relationships) ourNetwork.get(j)).getFriend1().equals(f1.getId())) {
                             System.out.println(((Relationships) ourNetwork.get(j)).getFriend2());
                         }else if(((Relationships) ourNetwork.get(j)).getFriend2().equals(f1.getId())){
                             System.out.println(((Relationships) ourNetwork.get(j)).getFriend1());
                         }
-                    }else if(press == 0){
+                    }else if(select == 0){
                         if(((Relationships) ourNetwork.get(j)).getFriend1().equals(f1.getId())) {
-                            outFile.println(((Relationships) ourNetwork.get(j)).getFriend2());
+                            output.println(((Relationships) ourNetwork.get(j)).getFriend2());
                         }else if(((Relationships) ourNetwork.get(j)).getFriend2().equals(f1.getId())){
-                            outFile.println(((Relationships) ourNetwork.get(j)).getFriend1());
+                            output.println(((Relationships) ourNetwork.get(j)).getFriend1());
                         }
                     }
                 }
         	}
-        }outFile.close();
+        } 
+        
+        output.close();
     }
 	
 	/**
 	 * Prints all people from network in console that live on the given city
 	 * @param city
 	 */
-	public void cityPeople(String city) {
+	public void printByCity(String city) {
 		
 		for(int i=0; i < ourNetwork.size(); i++) {
 			if(ourNetwork.get(i) instanceof Friend) {
@@ -167,7 +167,7 @@ public class Network {
 	 * @param year1
 	 * @param year2
 	 */
-	public void yearsPeople(int year1, int year2) {
+	public void printbyTimeFrame(int year1, int year2) {
 		//the first year has to be the oldest year
 		ArrayList<Friend> friendList = new ArrayList<Friend>();
 		String[] userYear;
@@ -278,14 +278,14 @@ public class Network {
 				switch(number) {
 				case 1:
 					path = keyboard.next();
-					Network.read_info(path);
+					Network.importUsers(path);
 					break;
 				case 2:
 					path = keyboard.next();
-					Network.load_relationships(path);
+					Network.importRelationships(path);
 					break;
 				case 3:
-					Network.printData();
+					Network.exportData();
 					break;
 				case 4:
 					System.out.println("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
@@ -309,13 +309,13 @@ public class Network {
 
 
 						int press = keyboard.nextInt();
-						Network.printFriends(surname, press);
+						Network.exportRelationships(surname, press);
 						break;
 					case 2 :
 						//7
 						System.out.println("\nEnter city > ");
 						String city = keyboard.next();
-						Network.cityPeople(city);
+						Network.printByCity(city);
 						break;
 					case 3 :
 						//8
@@ -324,7 +324,7 @@ public class Network {
 						System.out.println("Enter year of time frame end > ");
 
 						int date2 = keyboard.nextInt();
-						Network.yearsPeople(date1, date2);
+						Network.printbyTimeFrame(date1, date2);
 						break;
 					case 4 :
 						//9
