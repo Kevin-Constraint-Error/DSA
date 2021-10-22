@@ -75,10 +75,54 @@ public class Network {
 		while (scnr.hasNextLine()) {
 			line = scnr.nextLine();
 			String[] input = line.split(splitBy); // Comma used as separator in input files 
+			
 			if (input[0] != "idperson") // Avoids adding info template as an actual user
 				addUser(input[0], input[1], input[2], input[3], input[4], input[5], input[6], input[7], input[8], input[9], input[10]);
 			else {
+				String[] template = input;
 				
+				String id = "";
+				String name = "";
+				String lastname = "";
+				String birthDate = "";
+				String gender = "";
+				String birthPlace = "";
+				String residence = "";
+				String studiedAt = "";
+				String workPlaces = "";
+				String films = "";
+				String groupCode = "";
+				
+				while (scnr.hasNextLine()) {
+					line = scnr.nextLine();
+					input = line.split(splitBy);
+					
+					for (int i = 0; i < input.length; i++) {
+						if (template[i] == "idperson")
+							id = input[i];
+						else if (template[i] == "name")
+							name = input[i];
+						else if (template[i] == "lastname")
+							lastname = input[i];
+						else if (template[i] == "birthdate")
+							birthDate = input[i];
+						else if (template[i] == "gender")
+							gender = input[i];
+						else if (template[i] == "birthplace")
+							birthPlace = input[i];
+						else if (template[i] == "home")
+							residence = input[i];
+						else if (template[i] == "studiedat")
+							studiedAt = input[i];
+						else if (template[i] == "workplaces")
+							workPlaces = input[i];
+						else if (template[i] == "films")
+							films = input[i];
+						else if (template[i] == "groupcode")
+							groupCode = input[i];
+					}
+					addUser(id, name, lastname, birthDate, gender, birthPlace, residence, studiedAt, workPlaces, films, groupCode);
+				}
 			}
 		}
 		scnr.close();
@@ -259,7 +303,7 @@ public class Network {
         	f1 = friendStack.pop();
         	for(int i = 0; i < ourNetwork.size(); i++) {
         		if(ourNetwork.get(i) instanceof Friend) {
-        			if(f1.getHome().equals(((Friend) ourNetwork.get(i)).getHome()))
+        			if(f1.getResidence().equals(((Friend) ourNetwork.get(i)).getResidence()))
         				System.out.println("\n Name: " + ((Friend)ourNetwork.get(i)).getName() + "\n Surname: " + ((Friend)ourNetwork.get(i)).getLastname() + "\n Birthplace: " + ((Friend)ourNetwork.get(i)).getBirthPlace() + "\n Studied at: " + ((Friend)ourNetwork.get(i)).getStudiedAt() + "\n");
         		}
         	}

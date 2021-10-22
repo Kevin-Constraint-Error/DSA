@@ -8,7 +8,7 @@ public class Friend implements Comparable<Object> {
 	private String birthDate;
 	private String gender;
 	private String birthPlace;
-	private String home;
+	private String residence;
 	private String studiedAt;
 	private String workPlaces;
 	private String films;
@@ -19,14 +19,14 @@ public class Friend implements Comparable<Object> {
 		this.id = id;
 	}
 	
-	public Friend(String id, String name, String lastname, String birthdate, String gender, String birthPlace, String home, String studiedAt, String workPlaces, String films, String groupCode) {
+	public Friend(String id, String name, String lastname, String birthdate, String gender, String birthPlace, String residence, String studiedAt, String workPlaces, String films, String groupCode) {
 		this.id = id;
 		this.name = name;
 		this.lastname = lastname;
 		this.birthDate = birthdate;
 		this.gender = gender;
 		this.birthPlace = birthPlace;
-		this.home = home;
+		this.residence = residence;
 		this.studiedAt = studiedAt;
 		this.workPlaces = workPlaces;
 		this.films = films;
@@ -81,12 +81,12 @@ public class Friend implements Comparable<Object> {
 		this.birthPlace = birthPlace;
 	}
 
-	public String getHome() {
-		return home;
+	public String getResidence() {
+		return residence;
 	}
 
-	public void setHome(String home) {
-		this.home = home;
+	public void setResidence(String residence) {
+		this.residence = residence;
 	}
 
 	public String getStudiedAt() {
@@ -122,7 +122,7 @@ public class Friend implements Comparable<Object> {
 	}
 	
 	public String print() {
-		String in = "User's Id: " + id + ", Name: " + name + ", Lastname: " + lastname + ", Birthdate: " + birthDate + ", Gender: " + gender + ", Birthplace: " + birthPlace + ", Home: " + home + ", Studied at: " + studiedAt + ", Work places: " + workPlaces + ", Films: " + films + ", Groupcode: " + groupCode;
+		String in = "User's Id: " + id + ", Name: " + name + ", Lastname: " + lastname + ", Birthdate: " + birthDate + ", Gender: " + gender + ", Birthplace: " + birthPlace + ", Home: " + residence + ", Studied at: " + studiedAt + ", Work places: " + workPlaces + ", Films: " + films + ", Groupcode: " + groupCode;
 		return in;
 	}
 	
