@@ -91,7 +91,6 @@ public class Network {
 	 */
 	
 	public void exportUserdata() throws FileNotFoundException {
-		// TODO maybe refers to just users and not friendships (ask)
 		String writePath = "C:\\Users\\Kevin\\Desktop\\NetworkUserdata.txt";
 		
 		File file = new File (writePath);
@@ -331,7 +330,7 @@ public class Network {
 					Network.importRelationships(path);
 					break;
 				case 3:
-					Network.exportData();
+					Network.exportUserdata();
 					break;
 				case 4:
 					System.out.println("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
