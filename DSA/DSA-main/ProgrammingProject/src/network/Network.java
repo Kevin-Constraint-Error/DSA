@@ -77,6 +77,9 @@ public class Network {
 			String[] input = line.split(splitBy); // Comma used as separator in input files 
 			if (input[0] != "idperson") // Avoids adding info template as an actual user
 				addUser(input[0], input[1], input[2], input[3], input[4], input[5], input[6], input[7], input[8], input[9], input[10]);
+			else {
+				
+			}
 		}
 		scnr.close();
 	}
@@ -87,20 +90,16 @@ public class Network {
 	 * @throws FileNotFoundException
 	 */
 	
-	public void exportData() throws FileNotFoundException {
+	public void exportUserdata() throws FileNotFoundException {
 		// TODO maybe refers to just users and not friendships (ask)
 		String writePath = "C:\\Users\\Kevin\\Desktop\\NetworkUserdata.txt";
 		
 		File file = new File (writePath);
 		PrintWriter output = new PrintWriter (file);
 		
-		for(Object user : ourNetwork) {	// Casts objects depending on instance and prints them accordingly
-			if(user instanceof Friend) {
+		for(Object user : ourNetwork)	// Casts objects depending on instance and prints them accordingly
+			if(user instanceof Friend) 
 				output.println(((Friend) user).print());
-			}else {
-				output.println(((Relationships) user).print());
-			}
-		}
 		output.close();
 	}
 	
