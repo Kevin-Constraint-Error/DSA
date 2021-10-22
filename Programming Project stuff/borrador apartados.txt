@@ -3,6 +3,8 @@ apartados del programming project
 1- Network/main (menu options)
 2- Network/addUser
 3- Network/importUsers
+4- Network/exportdata
+5- Network/importRelationships
 
 
 
@@ -18,6 +20,11 @@ los archivos de texto:
 
 
 dudas a preguntar:
-- cosas del archivo de texto
-- exportdata es solo para users o para users + relationships?
-- importRelationships: split like importUsers?
+- cosas del archivo de texto (era un typo)
+- exportdata es solo para users o para users + relationships? (solo users)
+- importRelationships: split like importUsers? (DALE LOCO)
+
+
+
+to-do:
+- implementar en importRelationships para que invalide si minimo una de las personas no está en la network

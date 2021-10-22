@@ -52,11 +52,21 @@ public class Network {
 	
 	
 	/**
+	 * Adds relationship to the network with given parameters
+	 * @param friend1
+	 * @param friend2
+	 */
+	public void addShip(String friend1, String friend2) {
+		Relationships rel = new Relationships(friend1, friend2);
+		ourNetwork.add(rel);
+	}
+	
+	
+	/**
 	 * Scans and reads people's information from file input and stores it in the network
 	 * @param path Filename
 	 * @throws IOException
 	 */
-	
 	
 	public void importUsers(String path) throws IOException {
 		String line = "";  
@@ -73,6 +83,7 @@ public class Network {
 		}
 		scnr.close();
 	}
+	
 	
 	/**
 	 * Outputs network data into a new text file
@@ -96,6 +107,7 @@ public class Network {
 		output.close();
 	}
 	
+	
 	/**
 	 * Scans and reads people's mutual friendships from file input and stores it in the network
 	 * @param path Filename
@@ -114,14 +126,27 @@ public class Network {
 		while (scnr.hasNextLine()) {  
 			line = scnr.nextLine();
 			String[] input = line.split(splitBy); // Comma used as separator in input files 
-			if ((input[0] != "friend1") || (input[1] != "friend2")) { // Avoids adding info template as an actual user
-				Relationships rel = new Relationships(input[0], input[1]);
-				ourNetwork.add(rel); 
-				// TODO split?
+			Friend f1 = new Friend(input[0]);
+			Friend f2 = new Friend(input[1]);
+			boolean isF1InNetwork = false;
+			boolean isF2InNetwork = false;
+			int i = 0;
+			while (i < ourNetwork.size() && (!isF1InNetwork || !isF2InNetwork)) {
+				if (ourNetwork.get(i) instanceof Friend) {
+					if (((Friend) ourNetwork.get(i)).equals(f1))
+						isF1InNetwork = true;
+					else if (((Friend) ourNetwork.get(i)).equals(f2))
+						isF2InNetwork = true;
+				}
+				i++;
 			}
+			
+			if (isF1InNetwork && isF2InNetwork)		
+				addShip(input[0], input[1]);
 		}
 		scnr.close();
 	}
+	
 	
 	/**
 	 * Outputs network friends into a new text file
@@ -151,13 +176,13 @@ public class Network {
         	f1 = friendStack.pop();
         	for(int j = 0; j < ourNetwork.size(); j++) {
         		if(ourNetwork.get(j) instanceof Relationships) {
-                    if(select == 1) {
+                    if(select == 1) { // Print to console
                         if(((Relationships) ourNetwork.get(j)).getFriend1().equals(f1.getId())) {
                             System.out.println(((Relationships) ourNetwork.get(j)).getFriend2());
                         }else if(((Relationships) ourNetwork.get(j)).getFriend2().equals(f1.getId())){
                             System.out.println(((Relationships) ourNetwork.get(j)).getFriend1());
                         }
-                    }else if(select == 0){
+                    }else if(select == 0) { // Export to text file
                         if(((Relationships) ourNetwork.get(j)).getFriend1().equals(f1.getId())) {
                             output.println(((Relationships) ourNetwork.get(j)).getFriend2());
                         }else if(((Relationships) ourNetwork.get(j)).getFriend2().equals(f1.getId())){
@@ -315,7 +340,7 @@ public class Network {
 				case 4:
 					System.out.println("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
 					System.out.println(" SEARCH AND UPDATE INFORMATION OF USERS: ");
-					System.out.println("1. Filter by lastname (friends of users with lastname)");
+					System.out.println("1. Filter by lastname (friendships of users with lastname)");
 					System.out.println("2. Filter by city");
 					System.out.println("3. Filter by time frame");
 					System.out.println("4. Filter by residents matched in residential.txt");
@@ -326,15 +351,15 @@ public class Network {
 					case 1 :
 						// 6
 						System.out.println("\nEnter lastname: ");
-						String surname = keyboard.next();
+						String lastname = keyboard.next();
 						System.out.println("\nSelect printing method: ");
-						System.out.println("0. Export to text file");
+						System.out.println("0. Export to text file...");
 						System.out.println("1. Print to console");
 						System.out.println("> ");
 
 
-						int press = keyboard.nextInt();
-						Network.exportRelationships(surname, press);
+						int select = keyboard.nextInt();
+						Network.exportRelationships(lastname, select);
 						break;
 					case 2 :
 						//7
