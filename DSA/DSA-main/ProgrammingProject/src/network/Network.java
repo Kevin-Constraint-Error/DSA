@@ -241,14 +241,14 @@ public class Network {
      
         Scanner scnr = new Scanner(new File("C:\\Users\\Kevin\\Desktop\\residential.txt"));
         
-		System.out.println("\nUsers in residence: " );
+        // print full list of users in residential record
+		System.out.println("\nUsers in residential record: " );
 		while (scnr.hasNextLine()) {  
 			line = scnr.nextLine();
 			for(int i = 0; i < ourNetwork.size(); i++) {
 				if(ourNetwork.get(i) instanceof Friend) {
 					if(((Friend) ourNetwork.get(i)).getId().equals(line)) {
 						friendStack.push((Friend) ourNetwork.get(i)); // their hometown will be used later
-						System.out.println("\n Name: " + ((Friend)ourNetwork.get(i)).getName() + "\n Surname: " + ((Friend)ourNetwork.get(i)).getLastname() + "\n Birthplace: " + ((Friend)ourNetwork.get(i)).getBirthPlace() + "\n Studied at: " + ((Friend)ourNetwork.get(i)).getStudiedAt() + "\n");
 					}
 				}
 			}
@@ -257,10 +257,10 @@ public class Network {
 		
 		while(!friendStack.isEmpty()) {
         	f1 = friendStack.pop();
-        	for(int j = 0; j < ourNetwork.size(); j++) {
-        		if(ourNetwork.get(j) instanceof Friend) {
-        			if(f1.getHome().equals(((Friend) ourNetwork.get(j)).getHome()))
-            			System.out.println(((Friend) ourNetwork.get(j)).getId());
+        	for(int i = 0; i < ourNetwork.size(); i++) {
+        		if(ourNetwork.get(i) instanceof Friend) {
+        			if(f1.getHome().equals(((Friend) ourNetwork.get(i)).getHome()))
+        				System.out.println("\n Name: " + ((Friend)ourNetwork.get(i)).getName() + "\n Surname: " + ((Friend)ourNetwork.get(i)).getLastname() + "\n Birthplace: " + ((Friend)ourNetwork.get(i)).getBirthPlace() + "\n Studied at: " + ((Friend)ourNetwork.get(i)).getStudiedAt() + "\n");
         		}
         	}
         } //TODO check this ^
