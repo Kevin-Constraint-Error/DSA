@@ -3,13 +3,10 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Stack;
 import java.util.Collections;
-import java.lang.Comparable;
-import java.util.List;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.File;
-import java.io.FileInputStream.*;
 
 public class Network {
 

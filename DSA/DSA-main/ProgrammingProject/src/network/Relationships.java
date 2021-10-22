@@ -1,6 +1,6 @@
 package network;
 
-public class Relationships extends Object{
+public class Relationships {
 
 	private String friend1;
 	private String friend2;
@@ -27,7 +27,6 @@ public class Relationships extends Object{
 	}
 	
 	public String print() {
-		String on = friend1 + " and " + friend2 + " are friends.";
-		return on;
+		return friend1 + " and " + friend2 + " are friends.";
 	}
 }

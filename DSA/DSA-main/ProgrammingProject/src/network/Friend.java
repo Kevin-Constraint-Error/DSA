@@ -1,7 +1,7 @@
 package network;
 import java.lang.Comparable;
 
-public class Friend extends Object implements Comparable<Object> {
+public class Friend implements Comparable<Object> {
 	private String id;
 	private String name;
 	private String lastname;
