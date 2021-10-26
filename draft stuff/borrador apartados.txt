@@ -1,0 +1,15 @@
+G612072 - our group
+
+TODO - PARA DOCUMENTACIÓN: 
+> Antes de entrar en los metodos, explicar que tenemos tres clases: Network, Friend y Relationships
+> explicar caracteristicas y funciones de cada clase
+
+APARTADOS ORIGINALES DEL EJERCICIO Y SUS METODOS CORRESPONDIENTES:
+1- Network/main (menu options)
+2- Network/addUser
+3- Network/importUsers
+4- Network/exportUserdata
+5- Network/importRelationships, addShip
+
+
+6- 

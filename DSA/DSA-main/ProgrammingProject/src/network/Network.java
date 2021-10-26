@@ -310,6 +310,7 @@ public class Network {
         } //TODO check this ^
 	}
 	
+	
 	/**
 	 * Prints all different classes into console. A class is a group of users that like exactly the same films.
 	 */
@@ -350,7 +351,7 @@ public class Network {
 			System.out.println(" MAIN MENU:");
 			System.out.println("1. Import people into network");
 			System.out.println("2. Import relationships into network");
-			System.out.println("3. Export network data to file...");
+			System.out.println("3. Export network userdata to file...");
 			System.out.println("4. Search and update information");
 			System.out.println("5. Calculate chain of people");
 			System.out.println("0. Exit program...");
