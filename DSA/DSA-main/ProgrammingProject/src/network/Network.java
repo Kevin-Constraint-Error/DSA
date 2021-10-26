@@ -361,19 +361,35 @@ public class Network {
 			Scanner keyboard = new Scanner(System.in);
 			number = keyboard.nextInt();
 			String path;
-			
+			boolean done=false;
 			while (number != 0) {
 			
 				switch(number) {
 				case 1:
 					System.out.print("\nChoose file to import... > ");
 					path = keyboard.next();
-					Network.importUsers(path);
+							try
+							{
+								Network.importUsers(path);
+								System.out.println("People imported successfully");
+							}
+							catch(FileNotFoundException e)
+							{
+								System.out.println("Incorrect file name");
+							}
 					break;
 				case 2:
 					System.out.print("\nChoose file to import... > ");
 					path = keyboard.next();
-					Network.importRelationships(path);
+					try
+					{
+						Network.importRelationships(path);
+						System.out.println("Relationships imported successfully");
+					}
+					catch(FileNotFoundException e)
+					{
+						System.out.println("Incorrect file name");
+					}
 					break;
 				case 3:
 					System.out.print("\nChoose file to export to... > ");
