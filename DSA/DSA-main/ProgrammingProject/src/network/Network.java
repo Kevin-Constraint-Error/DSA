@@ -69,7 +69,7 @@ public class Network {
 		String line = "";  
 		String splitBy = ",";
      
-        Scanner scnr = new Scanner(new File("C:\\Users\\Kevin\\Desktop\\cliquesDSA2021\\" + path));
+        Scanner scnr = new Scanner(new File("cliquesDSA2021/" + path));
         
         
 		while (scnr.hasNextLine()) {
@@ -135,7 +135,7 @@ public class Network {
 	 */
 	
 	public void exportUserdata() throws FileNotFoundException {
-		String writePath = "C:\\Users\\Kevin\\Desktop\\NetworkUserdata.txt";
+		String writePath = "cliquesDSA2021/NetworkUserdata.txt";
 		
 		File file = new File (writePath);
 		PrintWriter output = new PrintWriter (file);
@@ -158,7 +158,7 @@ public class Network {
 		String splitBy = ",";
      
         //Creating Scanner 
-		Scanner scnr = new Scanner(new File("C:\\Users\\Kevin\\Desktop\\" + path));
+		Scanner scnr = new Scanner(new File("cliquesDSA2021/" + path));
         
         line = scnr.nextLine();
         
@@ -207,7 +207,7 @@ public class Network {
             }
         }
         
-        String writePath = "C:\\Users\\Kevin\\Desktop\\NetworkReldata.txt";
+        String writePath = "cliquesDSA2021/NetworkReldata.txt";
         File file = new File (writePath);
         PrintWriter output = new PrintWriter (file);
         
@@ -283,7 +283,7 @@ public class Network {
 		String line = "";  
 		Friend f1;
      
-        Scanner scnr = new Scanner(new File("C:\\Users\\Kevin\\Desktop\\residential.txt"));
+        Scanner scnr = new Scanner(new File("cliquesDSA2021/residential.txt"));
         
         // print full list of users in residential record
 		System.out.println("\nUsers in residential record: " );
@@ -357,7 +357,7 @@ public class Network {
 			System.out.println("0. Exit program...");
 
 
-			System.out.println("Select your option:");
+			System.out.print("Select your option > ");
 			int number;
 			Scanner keyboard = new Scanner(System.in);
 			number = keyboard.nextInt();
@@ -367,6 +367,7 @@ public class Network {
 			
 				switch(number) {
 				case 1:
+					System.out.print("\nInput name of file to import... > ");
 					path = keyboard.next();
 					Network.importUsers(path);
 					break;
@@ -385,7 +386,7 @@ public class Network {
 					System.out.println("3. Filter by time frame");
 					System.out.println("4. Filter by residents matched in residential.txt");
 					System.out.println("5. Filter by identical film classes");
-					System.out.println("Select your option > ");
+					System.out.print("Select your option > ");
 					int search = keyboard.nextInt();
 					switch(search) {
 					case 1 :
@@ -395,7 +396,7 @@ public class Network {
 						System.out.println("\nSelect printing method: ");
 						System.out.println("0. Export to text file...");
 						System.out.println("1. Print to console");
-						System.out.println("> ");
+						System.out.print("> ");
 
 
 						int select = keyboard.nextInt();
@@ -403,7 +404,7 @@ public class Network {
 						break;
 					case 2 :
 						//7
-						System.out.println("\nEnter city > ");
+						System.out.print("\nEnter city > ");
 						String city = keyboard.next();
 						Network.printByCity(city);
 						break;
@@ -411,7 +412,7 @@ public class Network {
 						//8
 						System.out.println("\nEnter year of time frame beginning > ");
 						int date1 = keyboard.nextInt();
-						System.out.println("Enter year of time frame end > ");
+						System.out.print("Enter year of time frame end > ");
 
 						int date2 = keyboard.nextInt();
 						Network.printbyTimeFrame(date1, date2);
@@ -429,7 +430,7 @@ public class Network {
 					}
 					break;
 				case 5 :
-					Graph graph = new Graph(8,19, "C:\\Users\\Kevin\\Desktop\\graph8.txt", "C:\\Users\\Kevin\\Desktop\\graph88.txt","Jon232");
+					Graph graph = new Graph(8,19, "cliquesDSA2021/graph8.txt", "cliquesDSA2021/graph88.txt","Jon232");
 					
 					System.out.println("\nSelect chain: ");
 					System.out.println("1. Shortest chain between two given users");
@@ -482,6 +483,18 @@ public class Network {
 				default:	
 					
 				}
+				
+				System.out.println("\n\n=-=-=-=-=-=");
+				System.out.println(" MAIN MENU:");
+				System.out.println("1. Import people into network");
+				System.out.println("2. Import relationships into network");
+				System.out.println("3. Export network userdata to file...");
+				System.out.println("4. Search and update information");
+				System.out.println("5. Calculate chain of people");
+				System.out.println("0. Exit program...");
+
+
+				System.out.print("Select your option > ");
 				number = keyboard.nextInt();
 			}
 			keyboard.close();
