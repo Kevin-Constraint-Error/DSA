@@ -1,0 +1,165 @@
+public static void main(String args[]) {
+		  
+		try {  
+			Network Network = new Network();
+			
+			System.out.println("=-=-=-=-=-=");
+			System.out.println(" MAIN MENU:");
+			System.out.println("1. Import people into network");
+			System.out.println("2. Import relationships into network");
+			System.out.println("3. Export network userdata to file...");
+			System.out.println("4. Search and update information");
+			System.out.println("5. Calculate chain of people");
+			System.out.println("0. Exit program...");
+
+
+			System.out.print("Select your option > ");
+			int number;
+			Scanner keyboard = new Scanner(System.in);
+			number = keyboard.nextInt();
+			String path;
+			
+			while (number != 0) {
+			
+				switch(number) {
+				case 1:
+					System.out.print("\nChoose file to import... > ");
+					path = keyboard.next();
+					Network.importUsers(path);
+					break;
+				case 2:
+					System.out.print("\nChoose file to import... > ");
+					path = keyboard.next();
+					Network.importRelationships(path);
+					break;
+				case 3:
+					System.out.print("\nChoose file to export to... > ");
+					path = keyboard.next();
+					Network.exportUserdata(path);
+					System.out.println("\nData successfully saved in "+ path);
+					break;
+				case 4:
+					System.out.println("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+					System.out.println(" SEARCH AND UPDATE INFORMATION OF USERS: ");
+					System.out.println("1. Filter by lastname (friendships of users with lastname)");
+					System.out.println("2. Filter by city");
+					System.out.println("3. Filter by time frame");
+					System.out.println("4. Filter by residents matched in residential.txt");
+					System.out.println("5. Filter by identical film classes");
+					System.out.print("Select your option > ");
+					int search = keyboard.nextInt();
+					switch(search) {
+					case 1 :
+						// 6
+						System.out.println("\nEnter lastname: ");
+						String lastname = keyboard.next();
+						System.out.println("\nSelect printing method: ");
+						System.out.println("0. Export to text file...");
+						System.out.println("1. Print to console");
+						System.out.print("> ");
+
+
+						int select = keyboard.nextInt();
+						Network.exportRelationships(lastname, select);
+						break;
+					case 2 :
+						//7
+						System.out.print("\nEnter city > ");
+						String city = keyboard.next();
+						Network.printByCity(city);
+						break;
+					case 3 :
+						//8
+						System.out.println("\nEnter year of time frame beginning > ");
+						int date1 = keyboard.nextInt();
+						System.out.print("Enter year of time frame end > ");
+
+						int date2 = keyboard.nextInt();
+						Network.printbyTimeFrame(date1, date2);
+						break;
+					case 4 :
+						//9
+						Network.loadResidential();
+						break;
+					case 5 :
+						//10
+						Network.printFilmClasses();
+						break;
+					default:
+						
+					}
+					break;
+				case 5 :
+					Graph graph = new Graph(8,19, "cliquesDSA2021/graph8.txt", "cliquesDSA2021/graph88.txt","Jon232");
+					
+					System.out.println("\nSelect chain: ");
+					System.out.println("1. Shortest chain between two given users");
+					System.out.println("2. Largest chain between two given users");
+					System.out.println("3. Search for groups with at least 4 members");
+				
+					int x = keyboard.nextInt();
+					switch(x) {
+					case 1:
+						//11
+						System.out.println("Enter the id of the first user");
+						String idUserBreadth = keyboard.next();
+						
+						System.out.println("Enter the id of the second user");
+						String idUserLastBreadth = keyboard.next();
+						
+						BreadthFirstSearch minChain = new BreadthFirstSearch(graph, graph.returnHashtableValue(idUserBreadth));//graphUsers,graph.returnHashtableValue(idUserLast)
+						
+						Stack<Integer> shortChain = new Stack<Integer>();
+						shortChain = minChain.pathTo(graph.returnHashtableValue(idUserLastBreadth));
+						
+						while(!shortChain.isEmpty()) {
+							System.out.println(shortChain.pop());
+						}
+						
+						break;
+					case 2:
+						//12 DepthFirstSearch
+						System.out.println("Enter the id of the first user");
+						String idUserDepth = keyboard.next();
+						System.out.println("Enter the id of the second user");
+						String idUser2Depth = keyboard.next();
+						
+						DepthFirstSearch maxChain = new DepthFirstSearch(graph, graph.returnHashtableValue(idUserDepth));
+						Stack<Integer> largeChain = new Stack<Integer>();
+						largeChain = maxChain.pathTo(graph.returnHashtableValue(idUser2Depth));
+						
+						while(!largeChain.isEmpty()) {
+							System.out.println(largeChain.pop());
+						}
+						
+						break;
+					case 3:
+						//13
+						
+						break;
+					default:
+						
+					}
+				default:	
+					
+				}
+				
+				System.out.println("\n\n=-=-=-=-=-=");
+				System.out.println(" MAIN MENU:");
+				System.out.println("1. Import people into network");
+				System.out.println("2. Import relationships into network");
+				System.out.println("3. Export network userdata to file...");
+				System.out.println("4. Search and update information");
+				System.out.println("5. Calculate chain of people");
+				System.out.println("0. Exit program...");
+
+
+				System.out.print("Select your option > ");
+				number = keyboard.nextInt();
+			}
+			keyboard.close();
+		} catch (IOException e)  {  
+			e.printStackTrace();  
+		}
+		
+	}
