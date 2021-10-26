@@ -372,6 +372,7 @@ public class Network {
 					Network.importUsers(path);
 					break;
 				case 2:
+					System.out.print("\nChoose file to import... > ");
 					path = keyboard.next();
 					Network.importRelationships(path);
 					break;
@@ -432,57 +433,9 @@ public class Network {
 						
 					}
 					break;
-				case 5 :
-					Graph graph = new Graph(8,19, "cliquesDSA2021/graph8.txt", "cliquesDSA2021/graph88.txt","Jon232");
 					
-					System.out.println("\nSelect chain: ");
-					System.out.println("1. Shortest chain between two given users");
-					System.out.println("2. Largest chain between two given users");
-					System.out.println("3. Search for groups with at least 4 members");
-				
-					int x = keyboard.nextInt();
-					switch(x) {
-					case 1:
-						//11
-						System.out.println("Enter the id of the first user");
-						String idUserBreadth = keyboard.next();
-						
-						System.out.println("Enter the id of the second user");
-						String idUserLastBreadth = keyboard.next();
-						
-						BreadthFirstSearch minChain = new BreadthFirstSearch(graph, graph.returnHashtableValue(idUserBreadth));//graphUsers,graph.returnHashtableValue(idUserLast)
-						
-						Stack<Integer> shortChain = new Stack<Integer>();
-						shortChain = minChain.pathTo(graph.returnHashtableValue(idUserLastBreadth));
-						
-						while(!shortChain.isEmpty()) {
-							System.out.println(shortChain.pop());
-						}
-						
-						break;
-					case 2:
-						//12 DepthFirstSearch
-						System.out.println("Enter the id of the first user");
-						String idUserDepth = keyboard.next();
-						System.out.println("Enter the id of the second user");
-						String idUser2Depth = keyboard.next();
-						
-						DepthFirstSearch maxChain = new DepthFirstSearch(graph, graph.returnHashtableValue(idUserDepth));
-						Stack<Integer> largeChain = new Stack<Integer>();
-						largeChain = maxChain.pathTo(graph.returnHashtableValue(idUser2Depth));
-						
-						while(!largeChain.isEmpty()) {
-							System.out.println(largeChain.pop());
-						}
-						
-						break;
-					case 3:
-						//13
-						
-						break;
-					default:
-						
-					}
+				// case 5 not done yet
+					
 				default:	
 					
 				}
