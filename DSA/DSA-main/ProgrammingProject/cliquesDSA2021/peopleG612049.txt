@@ -1,4 +1,4 @@
-idperson,name,lastname,birthdate,birthplace,home,studiedat,workplaces,films,groupcode
+idperson,name,lastname,birthdate,birthplace,home,studiedat,wo1rkplaces,films,groupcode
 Peru57,Peru,Aramburu,3-5-2001,Berlin,Donostia;Berlin,Brujas,Donostia,Up;Cloud Atlas,G23043
 Iker6199,Iker,Zaldua,17-7-2001,Donostia,Zubieta,Donostia,-,Shrek;Shrek 2,G34121
 Ainhoa34,Ainhoa,Figueras,30-7-2001,Donostia,Donostia,Gazteiz;Lasarte-Oria,Donostia;Gazteiz,Space Odyssei 2001,G23931

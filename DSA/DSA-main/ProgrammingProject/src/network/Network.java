@@ -75,8 +75,7 @@ public class Network {
 		while (scnr.hasNextLine()) {
 			line = scnr.nextLine();
 			String[] input = line.split(splitBy); // Comma used as separator in input files 
-			
-			if (input[0] != "idperson") // Avoids adding info template as an actual user
+			if (!input[0].equals("idperson")) // Avoids adding info template as an actual user
 				addUser(input[0], input[1], input[2], input[3], input[4], input[5], input[6], input[7], input[8], input[9], input[10]);
 			else {
 				String[] template = input;
@@ -98,27 +97,27 @@ public class Network {
 					input = line.split(splitBy);
 					
 					for (int i = 0; i < input.length; i++) {
-						if (template[i] == "idperson")
+						if (template[i].equals("idperson"))
 							id = input[i];
-						else if (template[i] == "name")
+						else if (template[i].equals("name"))
 							name = input[i];
-						else if (template[i] == "lastname")
+						else if (template[i].equals("lastname"))
 							lastname = input[i];
-						else if (template[i] == "birthdate")
+						else if (template[i].equals("birthdate"))
 							birthDate = input[i];
-						else if (template[i] == "gender")
+						else if (template[i].equals("gender"))
 							gender = input[i];
-						else if (template[i] == "birthplace")
+						else if (template[i].equals("birthplace"))
 							birthPlace = input[i];
-						else if (template[i] == "home")
+						else if (template[i].equals("home"))
 							residence = input[i];
-						else if (template[i] == "studiedat")
+						else if (template[i].equals("studiedat"))
 							studiedAt = input[i];
-						else if (template[i] == "workplaces")
+						else if (template[i].equals("workplaces"))
 							workPlaces = input[i];
-						else if (template[i] == "films")
+						else if (template[i].equals("films"))
 							films = input[i];
-						else if (template[i] == "groupcode")
+						else if (template[i].equals("groupcode"))
 							groupCode = input[i];
 					}
 					addUser(id, name, lastname, birthDate, gender, birthPlace, residence, studiedAt, workPlaces, films, groupCode);
@@ -380,7 +379,7 @@ public class Network {
 					System.out.print("\nChoose file to export to... > ");
 					path = keyboard.next();
 					Network.exportUserdata(path);
-					System.out.println("\nData successfully saved in "+ path);
+					System.out.println("\nData successfully saved in " + path);
 					break;
 				case 4:
 					System.out.println("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
