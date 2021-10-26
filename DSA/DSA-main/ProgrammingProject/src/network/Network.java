@@ -134,8 +134,8 @@ public class Network {
 	 * @throws FileNotFoundException
 	 */
 	
-	public void exportUserdata() throws FileNotFoundException {
-		String writePath = "cliquesDSA2021/NetworkUserdata.txt";
+	public void exportUserdata(String path) throws FileNotFoundException {
+		String writePath = "cliquesDSA2021/" + path;
 		
 		File file = new File (writePath);
 		PrintWriter output = new PrintWriter (file);
@@ -367,7 +367,7 @@ public class Network {
 			
 				switch(number) {
 				case 1:
-					System.out.print("\nInput name of file to import... > ");
+					System.out.print("\nChoose file to import... > ");
 					path = keyboard.next();
 					Network.importUsers(path);
 					break;
@@ -376,7 +376,10 @@ public class Network {
 					Network.importRelationships(path);
 					break;
 				case 3:
-					Network.exportUserdata();
+					System.out.print("\nChoose file to export to... > ");
+					path = keyboard.next();
+					Network.exportUserdata(path);
+					System.out.println("\nData successfully saved in "+ path);
 					break;
 				case 4:
 					System.out.println("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
