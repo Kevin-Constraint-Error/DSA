@@ -40,7 +40,7 @@ public class Main {
 						try {
 							path = console.next();
 							net.importUsers(path);
-							System.out.println("People imported successfully.\n");
+							System.out.println("People imported successfully.");
 							executed = true;
 							
 						} catch(FileNotFoundException e) {
