@@ -186,6 +186,19 @@ public class Network {
 	}
 	
 	
+	
+	private String retrieveInfo(String f) {
+		for (int i = 0; i < ourNetwork.size(); i++) 
+			if (ourNetwork.get(i) instanceof Friend)
+				if (f.equals(((Friend) ourNetwork.get(i)).getId())) 
+					return ((Friend) ourNetwork.get(i)).getId() + " " + ((Friend) ourNetwork.get(i)).getLastname();
+		return "";
+	}
+	
+	
+	
+	
+	
 	/**
 	 * Outputs network friends into a new text file
 	 * @param lastname
@@ -222,15 +235,15 @@ public class Network {
                     	}
                     		
                         if(((Relationships) ourNetwork.get(j)).getFriend1().equals(f1.getId())) {
-                            System.out.println(((Relationships) ourNetwork.get(j)).getFriend2());
-                        }else if(((Relationships) ourNetwork.get(j)).getFriend2().equals(f1.getId())){
-                            System.out.println(((Relationships) ourNetwork.get(j)).getFriend1());
+                        	System.out.println(retrieveInfo(((Relationships) ourNetwork.get(j)).getFriend2()));
+                        } else if(((Relationships) ourNetwork.get(j)).getFriend2().equals(f1.getId())){
+                        	System.out.println(retrieveInfo(((Relationships) ourNetwork.get(j)).getFriend1()));
                         }
                     }else if(select == 0) { // Export to text file
                         if(((Relationships) ourNetwork.get(j)).getFriend1().equals(f1.getId())) {
-                            output.println(((Relationships) ourNetwork.get(j)).getFriend2());
+                            output.println(retrieveInfo(((Relationships) ourNetwork.get(j)).getFriend2()));
                         }else if(((Relationships) ourNetwork.get(j)).getFriend2().equals(f1.getId())){
-                            output.println(((Relationships) ourNetwork.get(j)).getFriend1());
+                            output.println(retrieveInfo(((Relationships) ourNetwork.get(j)).getFriend1()));
                         }
                     }
                 }
@@ -246,7 +259,7 @@ public class Network {
 	 */
 	public void printByCity(String city) {
 		
-		for(int i=0; i < ourNetwork.size(); i++) {
+		for(int i = 0; i < ourNetwork.size(); i++) {
 			if(ourNetwork.get(i) instanceof Friend) {
 				if(((Friend) ourNetwork.get(i)).getBirthPlace().equals(city)) {
 					System.out.println(((Friend) ourNetwork.get(i)).getId());
