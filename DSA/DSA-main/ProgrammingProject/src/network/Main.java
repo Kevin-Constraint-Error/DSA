@@ -83,7 +83,7 @@ public class Main {
 					System.out.println("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
 					System.out.println(" SEARCH INFORMATION OF USERS: ");
 					System.out.println("1. Filter by lastname to search for their friend connections");
-					System.out.println("2. Filter by city");
+					System.out.println("2. Filter by birthplace");
 					System.out.println("3. Filter by time frame");
 					System.out.println("4. Filter by residents living in birthplaces matched in \"residential.txt\"");
 					System.out.println("5. Filter by identical film classes");
@@ -99,7 +99,7 @@ public class Main {
 						System.out.println("1. Print to console");
 						System.out.print("> ");
 						int select = console.nextInt();
-						net.exportRelationships(lastname, select);
+						net.printConnections(lastname, select);
 						break;
 					case 2 :
 						//7

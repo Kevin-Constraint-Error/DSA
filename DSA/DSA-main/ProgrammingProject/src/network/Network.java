@@ -239,7 +239,7 @@ public class Network {
 	 * @throws FileNotFoundException
 	 */
 	
-	public void exportRelationships(String lastname, int select) throws FileNotFoundException {
+	public void printConnections(String lastname, int select) throws FileNotFoundException {
 		
 		Friend f1;      
         
@@ -272,7 +272,7 @@ public class Network {
                         } else if(((Relationships) ourNetwork.get(j)).getFriend2().equals(f1.getId())){
                         	System.out.println("— " + retrieveRelInfo(((Relationships) ourNetwork.get(j)).getFriend1()));
                         }
-                    }else if(select == 0) { // Export to text file
+                    } else if(select == 0) { // Export to text file
                         if(((Relationships) ourNetwork.get(j)).getFriend1().equals(f1.getId())) {
                             output.println(retrieveRelInfo(((Relationships) ourNetwork.get(j)).getFriend2()));
                         }else if(((Relationships) ourNetwork.get(j)).getFriend2().equals(f1.getId())){
@@ -292,7 +292,7 @@ public class Network {
 	
 	
 	/**
-	 * Prints all people from network in console that live on the given city
+	 * Prints all people from network in console that were born on the given city
 	 * @param city
 	 */
 	public void printByCity(String city) {
