@@ -355,8 +355,7 @@ public class Network {
      
         Scanner scnr = new Scanner(new File("cliquesDSA2021/residential.txt"));
         
-        // print full list of users in residential record
-		System.out.println("\nUsers in residential record: " );
+        
 		while (scnr.hasNextLine()) {  
 			line = scnr.nextLine();
 			for(int i = 0; i < ourNetwork.size(); i++) {
@@ -369,15 +368,35 @@ public class Network {
 		}
 		scnr.close();
 		
+		// print full list of users in residential record
+		System.out.println("\nSearching for users whose residences match the birthplaces of the users in the record..." );
+		
 		while(!friendStack.isEmpty()) {
         	f1 = friendStack.pop();
+        	System.out.println("\n  People living in " + f1.getBirthPlace() + ": ");
+        	
         	for(int i = 0; i < ourNetwork.size(); i++) {
         		if(ourNetwork.get(i) instanceof Friend) {
-        			if(f1.getResidence().equals(((Friend) ourNetwork.get(i)).getResidence()))
-        				System.out.println("\n Name: " + ((Friend)ourNetwork.get(i)).getName() + "\n Surname: " + ((Friend)ourNetwork.get(i)).getLastname() + "\n Birthplace: " + ((Friend)ourNetwork.get(i)).getBirthPlace() + "\n Studied at: " + ((Friend)ourNetwork.get(i)).getStudiedAt() + "\n");
+        			if(f1.getBirthPlace().equals(((Friend) ourNetwork.get(i)).getResidence())) {
+        				String[] stdats = ((Friend)ourNetwork.get(i)).getStudiedAt().split(";");
+        				System.out.print("    — " + ((Friend)ourNetwork.get(i)).getName() + " " + 
+        										((Friend)ourNetwork.get(i)).getLastname() + 
+        								   "  —  Born in " + ((Friend)ourNetwork.get(i)).getBirthPlace() + 
+        							   	   "  —  Studied at ");
+    					int j = 0;
+        				for(String pl : stdats) {
+        					System.out.print(pl);
+        					if(j == stdats.length-1)
+        						System.out.print("\n");
+        					else
+        					    System.out.print(", ");
+        					j++;
+        				}
+        					
+        			}
         		}
         	}
-        } //TODO check this ^
+        } 
 	}
 	
 	

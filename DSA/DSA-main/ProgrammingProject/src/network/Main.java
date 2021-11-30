@@ -14,14 +14,14 @@ public class Main {
 			System.out.println("=-=-=-=-=-=");
 			System.out.println(" MAIN MENU:");
 			System.out.println("1. Import people into network");
-			System.out.println("2. Import relationships into network");
+			System.out.println("2. Import friend connections into network");
 			System.out.println("3. Export network userdata to file...");
-			System.out.println("4. Search for information on network");
+			System.out.println("4. Search for user information");
 			System.out.println("5. Calculate chain of people");
 			System.out.println("0. Exit program...");
 
 
-			System.out.print("Select your option > ");
+			System.out.print("\nSelect your option > ");
 
 
 			boolean executed = false;
@@ -44,7 +44,7 @@ public class Main {
 							executed = true;
 							
 						} catch(FileNotFoundException e) {
-							System.out.print("Incorrect file name, introduce a valid file name (don't forget to add .txt) >");
+							System.out.print("Incorrect file name, introduce a valid file name (don't forget to add .txt) > ");
 							
 						} catch(ArrayIndexOutOfBoundsException e) {
 							System.out.print("The contents of the file are incorrect, correct them and try again, or try with another file > ");
@@ -60,7 +60,7 @@ public class Main {
 						try {
 							path = console.next();
 							net.importRelationships(path);
-							System.out.println("Relationships imported successfully"); //TODO it can load a friends file too, should we prevent that?
+							System.out.println("Friend connections imported successfully"); //TODO it can load a friends file too, should we prevent that?
 							executed=true;
 							
 						} catch(FileNotFoundException e) {
@@ -82,12 +82,12 @@ public class Main {
 				case 4:
 					System.out.println("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
 					System.out.println(" SEARCH INFORMATION OF USERS: ");
-					System.out.println("1. Filter by lastname (friendships of users with lastname)");
+					System.out.println("1. Filter by lastname to search for their friend connections");
 					System.out.println("2. Filter by city");
 					System.out.println("3. Filter by time frame");
-					System.out.println("4. Filter by residents matched in file: residential.txt");
+					System.out.println("4. Filter by residents living in birthplaces matched in \"residential.txt\"");
 					System.out.println("5. Filter by identical film classes");
-					System.out.print("Select your option > ");
+					System.out.print("\nSelect your option > ");
 					int search = console.nextInt();
 					switch(search) {
 					case 1 :
@@ -131,20 +131,21 @@ public class Main {
 					// case 5 not done yet
 
 				default:	
-
+					System.out.println("Invalid option. Please try again.");
+					break;
 				}
 
 				System.out.println("\n\n=-=-=-=-=-=");
 				System.out.println(" MAIN MENU:");
 				System.out.println("1. Import people into network");
-				System.out.println("2. Import relationships into network");
+				System.out.println("2. Import friend connections into network");
 				System.out.println("3. Export network userdata to file...");
-				System.out.println("4. Search and update information");
+				System.out.println("4. Search for user information");
 				System.out.println("5. Calculate chain of people");
 				System.out.println("0. Exit program...");
 
 
-				System.out.print("Select your option > ");
+				System.out.print("\nSelect your option > ");
 				number = console.nextInt();
 			}
 
