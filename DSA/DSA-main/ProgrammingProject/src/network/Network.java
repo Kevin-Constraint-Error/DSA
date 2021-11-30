@@ -263,14 +263,14 @@ public class Network {
         		if(ourNetwork.get(j) instanceof Relationships) {
                     if(select == 1) { // Print to console
                     	if (newf) {
-                    		System.out.println("\n Friends of " + f1.getName() + " " + f1.getLastname() + ": ");
+                    		System.out.println("\n  Friends of " + f1.getName() + " " + f1.getLastname() + ": ");
                     		newf = false;
                     	}
                     		
                         if(((Relationships) ourNetwork.get(j)).getFriend1().equals(f1.getId())) {
-                        	System.out.println("— " + retrieveRelInfo(((Relationships) ourNetwork.get(j)).getFriend2()));
+                        	System.out.println("    — " + retrieveRelInfo(((Relationships) ourNetwork.get(j)).getFriend2()));
                         } else if(((Relationships) ourNetwork.get(j)).getFriend2().equals(f1.getId())){
-                        	System.out.println("— " + retrieveRelInfo(((Relationships) ourNetwork.get(j)).getFriend1()));
+                        	System.out.println("    — " + retrieveRelInfo(((Relationships) ourNetwork.get(j)).getFriend1()));
                         }
                     } else if(select == 0) { // Export to text file
                         if(((Relationships) ourNetwork.get(j)).getFriend1().equals(f1.getId())) {
@@ -296,12 +296,12 @@ public class Network {
 	 * @param city
 	 */
 	public void printByCity(String city) {
-		System.out.println("\nPeople living in " + city + ": ");
+		System.out.println("\n  People living in " + city + ": ");
 		
 		for(int i = 0; i < ourNetwork.size(); i++) {
 			if(ourNetwork.get(i) instanceof Friend) {
 				if(((Friend) ourNetwork.get(i)).getBirthPlace().equals(city)) {
-					System.out.print("— ");
+					System.out.print("    — ");
 					System.out.print(((Friend) ourNetwork.get(i)).getId() + " ");
 					System.out.print(((Friend) ourNetwork.get(i)).getLastname() + "\n");
 				}
@@ -336,7 +336,7 @@ public class Network {
 		System.out.println("\n");
 		
 		for(Friend f : friendList) {
-			System.out.println(f.getName() + " " + f.getLastname() + " was born in " + f.getBirthDate());
+			System.out.println("    — " + f.getName() + " " + f.getLastname() + " was born in " + f.getBirthDate());
 		}
 	}
 	
@@ -427,8 +427,8 @@ public class Network {
 			}
 		}
 		for(int i = 0; i < classes.size(); i++) {
-			System.out.println("\nFilms of interest: " + filmGroups.get(i));
-			System.out.println("Members: " + classes.get(i));
+			System.out.println("\n  Films of interest: " + filmGroups.get(i));
+			System.out.println("  Members: " + classes.get(i));
 		}
 	}
 	
