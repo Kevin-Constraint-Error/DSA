@@ -15,10 +15,14 @@ public class Network {
 	
 	
 
+	
 	public Network() {
 		ourNetwork = new ArrayList<Object>();
 		friendStack = new Stack<Friend>();
 	}
+	
+	
+	
 	
 	/**
 	 * Network getter
@@ -27,6 +31,11 @@ public class Network {
 	public static ArrayList<Object> getOurNetwork() {
 		return ourNetwork;
 	}
+	
+	
+	
+	
+	
 	
 	/**
 	 * Adds user to the network with given parameters
@@ -48,6 +57,10 @@ public class Network {
 	}
 	
 	
+	
+	
+	
+	
 	/**
 	 * Adds relationship to the network with given parameters
 	 * @param friend1
@@ -57,6 +70,10 @@ public class Network {
 		Relationships rel = new Relationships(friend1, friend2);
 		ourNetwork.add(rel);
 	}
+	
+	
+	
+	
 	
 	
 	/**
@@ -128,6 +145,10 @@ public class Network {
 	}
 	
 	
+	
+	
+	
+	
 	/**
 	 * Outputs network data into a new text file
 	 * @throws FileNotFoundException
@@ -144,6 +165,10 @@ public class Network {
 				output.println(((Friend) user).print());
 		output.close();
 	}
+	
+	
+	
+	
 	
 	
 	/**
@@ -185,15 +210,23 @@ public class Network {
 		scnr.close();
 	}
 	
+		
 	
 	
-	private String retrieveInfo(String f) {
+	
+	/**
+	 * Retrieves friend ID and last name by their string. Useful for working with Relationships-type objects
+	 * @param f
+	 * @return
+	 */
+	private String retrieveRelInfo(String f) {
 		for (int i = 0; i < ourNetwork.size(); i++) 
 			if (ourNetwork.get(i) instanceof Friend)
 				if (f.equals(((Friend) ourNetwork.get(i)).getId())) 
 					return ((Friend) ourNetwork.get(i)).getId() + " " + ((Friend) ourNetwork.get(i)).getLastname();
 		return "";
 	}
+
 	
 	
 	
@@ -235,15 +268,15 @@ public class Network {
                     	}
                     		
                         if(((Relationships) ourNetwork.get(j)).getFriend1().equals(f1.getId())) {
-                        	System.out.println(retrieveInfo(((Relationships) ourNetwork.get(j)).getFriend2()));
+                        	System.out.println("— " + retrieveRelInfo(((Relationships) ourNetwork.get(j)).getFriend2()));
                         } else if(((Relationships) ourNetwork.get(j)).getFriend2().equals(f1.getId())){
-                        	System.out.println(retrieveInfo(((Relationships) ourNetwork.get(j)).getFriend1()));
+                        	System.out.println("— " + retrieveRelInfo(((Relationships) ourNetwork.get(j)).getFriend1()));
                         }
                     }else if(select == 0) { // Export to text file
                         if(((Relationships) ourNetwork.get(j)).getFriend1().equals(f1.getId())) {
-                            output.println(retrieveInfo(((Relationships) ourNetwork.get(j)).getFriend2()));
+                            output.println(retrieveRelInfo(((Relationships) ourNetwork.get(j)).getFriend2()));
                         }else if(((Relationships) ourNetwork.get(j)).getFriend2().equals(f1.getId())){
-                            output.println(retrieveInfo(((Relationships) ourNetwork.get(j)).getFriend1()));
+                            output.println(retrieveRelInfo(((Relationships) ourNetwork.get(j)).getFriend1()));
                         }
                     }
                 }
@@ -253,21 +286,33 @@ public class Network {
         output.close();
     }
 	
+	
+	
+	
+	
+	
 	/**
 	 * Prints all people from network in console that live on the given city
 	 * @param city
 	 */
 	public void printByCity(String city) {
+		System.out.println("\nPeople living in " + city + ": ");
 		
 		for(int i = 0; i < ourNetwork.size(); i++) {
 			if(ourNetwork.get(i) instanceof Friend) {
 				if(((Friend) ourNetwork.get(i)).getBirthPlace().equals(city)) {
-					System.out.println(((Friend) ourNetwork.get(i)).getId());
-					System.out.println(((Friend) ourNetwork.get(i)).getLastname());
+					System.out.print("— ");
+					System.out.print(((Friend) ourNetwork.get(i)).getId());
+					System.out.print(((Friend) ourNetwork.get(i)).getLastname() + "\n");
 				}
 			}
 		}		
 	}
+	
+	
+	
+	
+	
 	
 	/**
 	 * First gathers all people from network that belong to the year range given, sorts them in a new array and prints them in console
@@ -292,6 +337,11 @@ public class Network {
 			System.out.println(f.getName() + " " + f.getLastname() + " was born in " + f.getBirthDate());
 		}
 	}
+	
+	
+	
+	
+	
 	
 	/**
 	 * Prints personal information from people located at residences matched in residential.txt
@@ -327,6 +377,10 @@ public class Network {
         	}
         } //TODO check this ^
 	}
+	
+	
+	
+	
 	
 	
 	/**
