@@ -283,7 +283,7 @@ public class Network {
         	}
         } 
         
-        output.close();
+        output.close(); //TODO Hacer para que si se selecciona por consola, no cree un archivo de texto vacio sin usar
     }
 	
 	
