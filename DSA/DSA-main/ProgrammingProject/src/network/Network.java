@@ -322,17 +322,19 @@ public class Network {
 	public void printbyTimeFrame(int year1, int year2) {
 		//the first year has to be the oldest year
 		ArrayList<Friend> friendList = new ArrayList<Friend>();
-		String[] years = new String[2];
+		String[] bd = new String[2];
 		
 		for(int i = 0; i < ourNetwork.size(); i++) {
 			if(ourNetwork.get(i) instanceof Friend) {
-				years = ((Friend) ourNetwork.get(i)).getBirthDate().split("-");
-				if(Integer.parseInt(years[0]) > year1 && Integer.parseInt(years[1]) < year2) {
+				bd = ((Friend) ourNetwork.get(i)).getBirthDate().split("-");
+				if(Integer.parseInt(bd[2]) >= year1 && Integer.parseInt(bd[2]) <= year2) {
 					friendList.add((Friend) ourNetwork.get(i));
 				}
 			}
 		}
 		Collections.sort(friendList);
+		System.out.println("\n");
+		
 		for(Friend f : friendList) {
 			System.out.println(f.getName() + " " + f.getLastname() + " was born in " + f.getBirthDate());
 		}

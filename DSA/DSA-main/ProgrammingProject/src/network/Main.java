@@ -109,7 +109,7 @@ public class Main {
 						break;
 					case 3 :
 						//8
-						System.out.println("\nEnter year of time frame beginning > ");
+						System.out.print("\nEnter year of time frame beginning > ");
 						int date1 = console.nextInt();
 						System.out.print("Enter year of time frame end > ");
 						int date2 = console.nextInt();
