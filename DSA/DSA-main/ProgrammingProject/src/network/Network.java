@@ -212,9 +212,15 @@ public class Network {
         
         while(!friendStack.isEmpty()) {
         	f1 = friendStack.pop();
+        	boolean newf = true;
         	for(int j = 0; j < ourNetwork.size(); j++) {
         		if(ourNetwork.get(j) instanceof Relationships) {
                     if(select == 1) { // Print to console
+                    	if (newf) {
+                    		System.out.println("\n Friends of " + f1.getName() + " " + f1.getLastname() + ": ");
+                    		newf = false;
+                    	}
+                    		
                         if(((Relationships) ourNetwork.get(j)).getFriend1().equals(f1.getId())) {
                             System.out.println(((Relationships) ourNetwork.get(j)).getFriend2());
                         }else if(((Relationships) ourNetwork.get(j)).getFriend2().equals(f1.getId())){

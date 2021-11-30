@@ -92,7 +92,7 @@ public class Main {
 					switch(search) {
 					case 1 :
 						// 6
-						System.out.println("\nEnter lastname: ");
+						System.out.print("\nEnter lastname > ");
 						String lastname = console.next();
 						System.out.println("\nSelect printing method: ");
 						System.out.println("0. Export to text file...");
