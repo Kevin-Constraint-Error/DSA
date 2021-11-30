@@ -16,7 +16,7 @@ public class Main {
 			System.out.println("1. Import people into network");
 			System.out.println("2. Import relationships into network");
 			System.out.println("3. Export network userdata to file...");
-			System.out.println("4. Search and update information");
+			System.out.println("4. Search for information on network");
 			System.out.println("5. Calculate chain of people");
 			System.out.println("0. Exit program...");
 
@@ -81,11 +81,11 @@ public class Main {
 					
 				case 4:
 					System.out.println("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
-					System.out.println(" SEARCH AND UPDATE INFORMATION OF USERS: ");
+					System.out.println(" SEARCH INFORMATION OF USERS: ");
 					System.out.println("1. Filter by lastname (friendships of users with lastname)");
 					System.out.println("2. Filter by city");
 					System.out.println("3. Filter by time frame");
-					System.out.println("4. Filter by residents matched in residential.txt");
+					System.out.println("4. Filter by residents matched in file: residential.txt");
 					System.out.println("5. Filter by identical film classes");
 					System.out.print("Select your option > ");
 					int search = console.nextInt();
@@ -98,8 +98,6 @@ public class Main {
 						System.out.println("0. Export to text file...");
 						System.out.println("1. Print to console");
 						System.out.print("> ");
-
-
 						int select = console.nextInt();
 						net.exportRelationships(lastname, select);
 						break;
@@ -114,7 +112,6 @@ public class Main {
 						System.out.println("\nEnter year of time frame beginning > ");
 						int date1 = console.nextInt();
 						System.out.print("Enter year of time frame end > ");
-
 						int date2 = console.nextInt();
 						net.printbyTimeFrame(date1, date2);
 						break;

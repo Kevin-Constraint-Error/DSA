@@ -252,7 +252,7 @@ public class Network {
             }
         }
         
-        String writePath = "cliquesDSA2021/NetworkReldata.txt";
+        String writePath = "cliquesDSA2021/friendsdata_" +  lastname + ".txt";
         File file = new File (writePath);
         PrintWriter output = new PrintWriter (file);
         
@@ -302,7 +302,7 @@ public class Network {
 			if(ourNetwork.get(i) instanceof Friend) {
 				if(((Friend) ourNetwork.get(i)).getBirthPlace().equals(city)) {
 					System.out.print("— ");
-					System.out.print(((Friend) ourNetwork.get(i)).getId());
+					System.out.print(((Friend) ourNetwork.get(i)).getId() + " ");
 					System.out.print(((Friend) ourNetwork.get(i)).getLastname() + "\n");
 				}
 			}
