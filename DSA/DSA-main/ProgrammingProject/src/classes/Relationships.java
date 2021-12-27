@@ -1,4 +1,4 @@
-package network;
+package classes;
 
 public class Relationships {
 

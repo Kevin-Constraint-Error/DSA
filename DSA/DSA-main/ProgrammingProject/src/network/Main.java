@@ -128,7 +128,9 @@ public class Main {
 					}
 					break;
 
-					// case 5 not done yet
+				case 5:
+					break;
+					
 
 				default:	
 					System.out.println("Invalid option. Please try again.");

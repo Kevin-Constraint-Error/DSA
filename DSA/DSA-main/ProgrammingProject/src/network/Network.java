@@ -2,6 +2,10 @@ package network;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Stack;
+
+import classes.Friend;
+import classes.Relationships;
+
 import java.util.Collections;
 import java.io.FileNotFoundException;
 import java.io.IOException;

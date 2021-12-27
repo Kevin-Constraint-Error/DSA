@@ -1,4 +1,4 @@
-package network;
+package classes;
 import java.lang.Comparable;
 
 public class Friend implements Comparable<Object> {
