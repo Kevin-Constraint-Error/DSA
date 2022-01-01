@@ -415,22 +415,22 @@ public class Network {
 		String films = "";
 		ArrayList<String> filmGroups = new ArrayList<String>();
 		ArrayList<String> classes = new ArrayList<String>();
-		for(int i = 0; i < ourNetwork.size(); i++) {
+		for (int i = 0; i < ourNetwork.size(); i++) {
 			if(ourNetwork.get(i) instanceof Friend) {
 				films = ((Friend) ourNetwork.get(i)).getFilms();
 				if(filmGroups.size() == 0) {
 					filmGroups.add(films);
 					classes.add(((Friend) ourNetwork.get(i)).getName() + " " + ((Friend) ourNetwork.get(i)).getLastname());
-				}else if(!filmGroups.contains(films)){
+				} else if(!filmGroups.contains(films)){
 					filmGroups.add(films);
 					classes.add(((Friend) ourNetwork.get(i)).getName() + " " + ((Friend) ourNetwork.get(i)).getLastname());
-				}else {
+				} else {
 					String existingUsers = classes.get(filmGroups.indexOf(films)); // All users in the same class are in one string split by commas
 					classes.set(filmGroups.indexOf(films), existingUsers + ", " + ((Friend) ourNetwork.get(i)).getName() + " " + ((Friend) ourNetwork.get(i)).getLastname());
 				}
 			}
 		}
-		for(int i = 0; i < classes.size(); i++) {
+		for (int i = 0; i < classes.size(); i++) {
 			System.out.println("\n  Films of interest: " + filmGroups.get(i));
 			System.out.println("  Members: " + classes.get(i));
 		}
