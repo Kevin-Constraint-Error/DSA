@@ -106,7 +106,7 @@ public class Graph {
 
 		int i = 0;
         //Creating Scanner instance to read File in Java
-        Scanner input = new Scanner(new File(fpath));
+        Scanner input = new Scanner(new File("cliquesDSA2021/" + fpath));
         
 		while (input.hasNextLine()) {  
 			line = input.nextLine();
@@ -121,7 +121,7 @@ public class Graph {
 		
 		input.close();
 
-		input = new Scanner(new File(relpath)); 
+		input = new Scanner(new File("cliquesDSA2021/" + relpath)); 
 		
 		while (input.hasNextLine()) {  
 			line = input.nextLine();
