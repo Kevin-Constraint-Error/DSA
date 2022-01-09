@@ -20,10 +20,10 @@ public class Graph {
 		if (V < 0) 
 			throw new IllegalArgumentException("Number of vertices must be positive");
 		
-		this.vertices = V;
-		this.edges = 0;
-		adj = (Bag<Integer>[]) new Bag[V];
-		for (int i = 0; i < V; i++) {
+		vertices = V;
+		edges = 0;
+		adj = (Bag<Integer>[]) new Bag[vertices];
+		for (int i = 0; i < vertices; i++) {
 			adj[i] = new Bag<Integer>();
 		}
 	}
@@ -34,16 +34,17 @@ public class Graph {
 	
 	@SuppressWarnings("unchecked")
 	public Graph(int V, int E, String path1, String path2) throws FileNotFoundException {
-		this.vertices = V;
+		vertices = V;
+		edges = E;
 		
-		if (E < 0)
+		if (edges < 0)
 			throw new IllegalArgumentException("Number of edges must be positive");
 		
-		adj = (Bag<Integer>[]) new Bag[V];
-		for (int i = 0; i < V; i++) {
+		adj = (Bag<Integer>[]) new Bag[vertices];
+		for (int i = 0; i < vertices; i++) {
 			adj[i] = new Bag<Integer>();
 		}
-		for (int i = 0; i < E; i++) {
+		for (int i = 0; i < edges; i++) {
 			this.convertData(path1, path2);
 		}
 	}
@@ -99,26 +100,28 @@ public class Graph {
 	
 	
 	
-	public void convertData(String path, String path2) throws FileNotFoundException {
+	public void convertData(String fpath, String relpath) throws FileNotFoundException {
 		
 		String line = "";  
 
 		int i = 0;
         //Creating Scanner instance to read File in Java
-        Scanner input = new Scanner(new File(path));
+        Scanner input = new Scanner(new File(fpath));
         
 		while (input.hasNextLine()) {  
 			line = input.nextLine();
 			String[] info = line.split(","); // use comma as separator
 			Friend user = new Friend(info[0], info[1], info[2], info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10]);
 			users.add(user);
-			ht.put(info[0], i);
+			
+			String id = info[0];
+			ht.put(id, i);
 			i++;
 		}
 		
 		input.close();
 
-		input = new Scanner(new File(path2)); 
+		input = new Scanner(new File(relpath)); 
 		
 		while (input.hasNextLine()) {  
 			line = input.nextLine();
@@ -129,8 +132,6 @@ public class Graph {
 		
 		input.close();
 	}
-	
-	
 	
 	
 	

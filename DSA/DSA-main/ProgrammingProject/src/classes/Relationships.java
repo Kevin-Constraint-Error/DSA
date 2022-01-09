@@ -29,4 +29,8 @@ public class Relationships {
 	public String print() {
 		return friend1 + " and " + friend2 + " are friends.";
 	}
+	
+	public String printToFile() {
+		return friend1 + "," + friend2;
+	}
 }

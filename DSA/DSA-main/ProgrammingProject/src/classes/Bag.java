@@ -2,13 +2,13 @@ package classes;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class Bag<Item> implements Iterable<Item>{
+public class Bag<T> implements Iterable<T>{
 
-	private int cnt;
+	private int count;
 	private Node first;
 	
 	private class Node {
-		private Item item;
+		private T content;
 		private Node next;
 		
 		private Node() {
@@ -18,30 +18,30 @@ public class Bag<Item> implements Iterable<Item>{
 	
 	public Bag() {
 		first = null;
-		cnt = 0;
+		count = 0;
 	}
 	
 	public boolean isEmpty() {
-		return first == null;
+		return count == 0;
 	}
 	
 	public int size() {
-		return cnt;
+		return count;
 	}
 	
-	public void add(Item item) {
-		Node oldFirst = first;
+	public void add(T content) {
+		Node aux = first;
 		first = new Node();
-		first.item = item;
-		first.next = oldFirst;
-		cnt++;
+		first.content = content;
+		first.next = aux;
+		count++;
 	}
 	
-	public Iterator<Item> iterator() {
+	public Iterator<T> iterator() {
 		return new ListIterator();
 	}
 	
-	private class ListIterator implements Iterator<Item> {
+	private class ListIterator implements Iterator<T> {
 		private Node current = first;
 		
 		public boolean hasNext() {
@@ -51,12 +51,12 @@ public class Bag<Item> implements Iterable<Item>{
 			throw new UnsupportedOperationException();
 		}
 		
-		public Item next() {
+		public T next() {
 			if (!hasNext()) 
 				throw new NoSuchElementException();
-			Item item = current.item;
+			T out = current.content;
 			current = current.next;
-			return item;
+			return out;
 		}
 	}
 }

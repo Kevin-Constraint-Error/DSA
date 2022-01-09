@@ -3,6 +3,9 @@ package network;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.Stack;
+
+import classes.Graph;
 
 //is it working?
 public class Main {
@@ -17,7 +20,7 @@ public class Main {
 			System.out.println("2. Import friend connections into network");
 			System.out.println("3. Export network userdata to file...");
 			System.out.println("4. Search for user information");
-			System.out.println("5. Calculate chain of people");
+			System.out.println("5. Search for chain of people");
 			System.out.println("0. Exit program...");
 
 
@@ -32,7 +35,7 @@ public class Main {
 			while (number != 0) {
 
 				switch(number) {
-				
+
 				case 1:													// import people into network
 					System.out.print("\nChoose file to import... > ");
 					executed = false;
@@ -42,17 +45,17 @@ public class Main {
 							net.importUsers(path);
 							System.out.println("People imported successfully.");
 							executed = true;
-							
+
 						} catch(FileNotFoundException e) {
 							System.out.print("Incorrect file name, introduce a valid file name (don't forget to add .txt) > ");
-							
+
 						} catch(ArrayIndexOutOfBoundsException e) {
 							System.out.print("The contents of the file are incorrect, correct them and try again, or try with another file > ");
 						}
 
 					}
 					break;
-					
+
 				case 2:														// import relationships into network
 					System.out.print("\nChoose file to import... > ");
 					executed = false;
@@ -62,23 +65,23 @@ public class Main {
 							net.importRelationships(path);
 							System.out.println("Friend connections imported successfully"); //TODO it can load a friends file too, should we prevent that?
 							executed=true;
-							
+
 						} catch(FileNotFoundException e) {
 							System.out.println("Incorrect file name");
-							
+
 						} catch(ArrayIndexOutOfBoundsException e) {
 							System.out.print("The contents of the file are incorrect, correct them and try again, or try with another file:");
 						}
 					}
 					break;
-					
+
 				case 3:
 					System.out.print("\nChoose file to export to... > ");
 					path = console.next();
 					net.exportUserdata(path);
 					System.out.println("\nData successfully saved in " + path);
 					break;
-					
+
 				case 4:
 					System.out.println("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
 					System.out.println(" SEARCH INFORMATION OF USERS: ");
@@ -129,8 +132,49 @@ public class Main {
 					break;
 
 				case 5:
-					break;
+					System.out.print("\nNote: A backup of the network will be generated and exported as a file in order to compute calculations."
+							+ "\nDo you wish to continue? (Y/N)   > ");
 					
+					String compl = console.nextLine();
+					char sel = compl.charAt(0);
+
+					if (sel == 'Y' || sel == 'y') {
+						
+						System.out.println("\nExporting data...");
+						net.backupNetwork();
+						
+						
+						
+						Graph gr = new Graph(net.getUserCount(), net.getRelCount(), "fNetwork.txt", "relNetwork.txt");
+
+						System.out.println("\nSelect chain: ");
+						System.out.println("1. Shortest chain between two given users");
+						System.out.println("2. Largest chain between two given users");
+						System.out.println("3. Search for groups with at least 4 members");
+
+						int x = console.nextInt();
+						switch(x) {
+						case 1:
+							//11
+							System.out.println("Enter the id of the first user");
+							String idUserBreadth = console.next();
+
+							System.out.println("Enter the id of the second user");
+							String idUserLastBreadth = console.next();
+
+							//Search minChain = new Search(gr, gr.returnHashtableValue(idUserBreadth));//graphUsers,graph.returnHashtableValue(idUserLast)
+
+							Stack<Integer> shortChain = new Stack<Integer>();
+							//shortChain = minChain.pathTo(gr.returnHashtableValue(idUserLastBreadth));
+
+							while(!shortChain.isEmpty()) {
+								System.out.println(shortChain.pop());
+							}
+
+							break;
+						}
+					}
+
 
 				default:	
 					System.out.println("Invalid option. Please try again.");
