@@ -20,5 +20,3 @@ Fernando33,Mikel1
 Erik68,Arua42
 Erik68,Mikel1
 Arua42,Mikel1
-
-
