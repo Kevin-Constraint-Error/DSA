@@ -64,14 +64,14 @@ public class Main {
 						try {
 							path = console.next();
 							net.importRelationships(path);
-							System.out.println("Friend connections imported successfully"); //TODO it can load a friends file too, should we prevent that?
+							System.out.println("Friend connections imported successfully"); 
 							executed=true;
 
 						} catch(FileNotFoundException e) {
-							System.out.println("Incorrect file name");
+							System.out.print("Incorrect file name, introduce a valid file name (don't forget to add .txt) > ");
 
 						} catch(ArrayIndexOutOfBoundsException e) {
-							System.out.print("The contents of the file are incorrect, correct them and try again, or try with another file:");
+							System.out.print("The contents of the file are incorrect, correct them and try again, or try with another file > ");
 						}
 					}
 					break;

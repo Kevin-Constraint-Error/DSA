@@ -232,6 +232,10 @@ public class Network {
 		while (scnr.hasNextLine()) {  
 			line = scnr.nextLine();
 			String[] input = line.split(splitBy); // Comma used as separator in input files 
+			
+			if (input.length > 2)
+				throw new ArrayIndexOutOfBoundsException();
+			
 			Friend f1 = new Friend(input[0]);
 			Friend f2 = new Friend(input[1]);
 			boolean isF1InNetwork = false;
