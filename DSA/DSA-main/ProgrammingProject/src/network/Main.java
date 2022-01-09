@@ -6,7 +6,8 @@ import java.util.Scanner;
 import java.util.Stack;
 
 import classes.Graph;
-import classes.Search;
+import classes.BreadthFirstSearch;
+import classes.DepthFirstSearch;
 
 //is it working?
 public class Main {
@@ -135,44 +136,70 @@ public class Main {
 				case 5:
 					System.out.print("\nNote: A backup of the network will be generated and exported as a file in order to compute calculations."
 							+ "\nDo you wish to continue? (Y/N)   > ");
-					
-					String compl = console.nextLine();
-					char complc = compl.charAt(0);
 
-					if (complc == 'Y' || complc == 'y') {
-						
-						System.out.println("\nExporting data...");
-						net.backupNetwork();
-						
-						Graph gr = new Graph(net.getUserCount(), net.getRelCount(), "fNetwork.txt", "relNetwork.txt");
+					boolean validCompl = false;
+					while (!validCompl) {
+						String compl = console.next();
 
-						System.out.println("\nWhat would you like to search for? ");
-						System.out.println("1. Shortest chain between two given users");
-						System.out.println("2. Largest chain between two given users");
-						System.out.println("3. Search for groups with at least 4 members");
+						if (compl.equalsIgnoreCase("y") || compl.equalsIgnoreCase("yes")) {
 
-						int sel = console.nextInt();
-						switch(sel) {
-						case 1:
-							//11
-							System.out.println("Enter the id of the first user > ");
-							String sourceUser = console.next();
+							validCompl = true;
+							System.out.println("\nExporting data...");
+							net.backupNetwork();
 
-							System.out.println("Enter the id of the second user > ");
-							String destUser = console.next();
+							Graph gr = new Graph(net.getUserCount(), net.getRelCount(), "fNetwork.txt", "relNetwork.txt");
 
-							Search bfs = new Search(gr, gr.getHash(sourceUser));
+							System.out.println("\nWhat would you like to search for? ");
+							System.out.println("1. Shortest chain between two given users");
+							System.out.println("2. Largest chain between two given users");
+							System.out.println("3. Search for groups with at least 4 members");
 
-							Stack<Integer> minChain = new Stack<Integer>();
-							minChain = bfs.pathTo(gr.getHash(destUser));
+							int sel = console.nextInt();
+							switch(sel) {
+							case 1:
+								//11
+								System.out.println("Enter the id of the first user > ");
+								String sourceUser = console.next();
 
-							while(!minChain.isEmpty()) {
-								System.out.println(minChain.pop());
+								System.out.println("Enter the id of the second user > ");
+								String destUser = console.next();
+
+								BreadthFirstSearch bfs = new BreadthFirstSearch(gr, gr.getHash(sourceUser));
+
+								Stack<Integer> minChain = new Stack<Integer>();
+								minChain = bfs.pathTo(gr.getHash(destUser));
+
+								while(!minChain.isEmpty()) 
+									System.out.println(minChain.pop());
+								
+
+								break;
+							case 2:
+								//12
+								System.out.println("Enter the id of the first user > ");
+								sourceUser = console.next();
+								System.out.println("Enter the id of the second user > ");
+								destUser = console.next();
+								
+								DepthFirstSearch dfs = new DepthFirstSearch(gr, gr.getHash(sourceUser));
+								Stack<Integer> maxChain = new Stack<Integer>();
+								maxChain = dfs.pathTo(gr.getHash(destUser));
+								
+								while(!maxChain.isEmpty())
+									System.out.println(maxChain.pop());
+							
+								
+								break;
 							}
-
-							break;
 						}
+
+						else if (compl.equalsIgnoreCase("n") || compl.equalsIgnoreCase("no"))
+							validCompl = true;
+
+						else 
+							System.out.print("Invalid input. Please try again > ");
 					}
+
 
 
 				default:	

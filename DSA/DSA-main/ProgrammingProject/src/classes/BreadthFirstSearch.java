@@ -1,7 +1,7 @@
 package classes;
 import java.util.Stack;
 
-public class Search {
+public class BreadthFirstSearch {
 
 	private static final int INFINITY = Integer.MAX_VALUE;
 	private boolean[] visited;
@@ -11,7 +11,7 @@ public class Search {
 	
 	
 	
-	public Search(Graph gr, int s) {
+	public BreadthFirstSearch(Graph gr, int s) {
 		visited = new boolean[gr.getVertices()];
 		edgeTo = new int[gr.getVertices()];
 		distTo = new int[gr.getVertices()];
@@ -21,7 +21,7 @@ public class Search {
 	
 	
 	
-	public Search(Graph gr, Iterable<Integer> sources) {
+	public BreadthFirstSearch(Graph gr, Iterable<Integer> sources) {
 		visited = new boolean[gr.getVertices()];
 		edgeTo = new int[gr.getVertices()];
 		distTo = new int[gr.getVertices()];
