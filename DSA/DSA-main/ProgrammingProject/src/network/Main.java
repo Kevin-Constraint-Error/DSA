@@ -6,6 +6,7 @@ import java.util.Scanner;
 import java.util.Stack;
 
 import classes.Graph;
+import classes.Search;
 
 //is it working?
 public class Main {
@@ -136,39 +137,37 @@ public class Main {
 							+ "\nDo you wish to continue? (Y/N)   > ");
 					
 					String compl = console.nextLine();
-					char sel = compl.charAt(0);
+					char complc = compl.charAt(0);
 
-					if (sel == 'Y' || sel == 'y') {
+					if (complc == 'Y' || complc == 'y') {
 						
 						System.out.println("\nExporting data...");
 						net.backupNetwork();
 						
-						
-						
 						Graph gr = new Graph(net.getUserCount(), net.getRelCount(), "fNetwork.txt", "relNetwork.txt");
 
-						System.out.println("\nSelect chain: ");
+						System.out.println("\nWhat would you like to search for? ");
 						System.out.println("1. Shortest chain between two given users");
 						System.out.println("2. Largest chain between two given users");
 						System.out.println("3. Search for groups with at least 4 members");
 
-						int x = console.nextInt();
-						switch(x) {
+						int sel = console.nextInt();
+						switch(sel) {
 						case 1:
 							//11
-							System.out.println("Enter the id of the first user");
-							String idUserBreadth = console.next();
+							System.out.println("Enter the id of the first user > ");
+							String sourceUser = console.next();
 
-							System.out.println("Enter the id of the second user");
-							String idUserLastBreadth = console.next();
+							System.out.println("Enter the id of the second user > ");
+							String destUser = console.next();
 
-							//Search minChain = new Search(gr, gr.returnHashtableValue(idUserBreadth));//graphUsers,graph.returnHashtableValue(idUserLast)
+							Search bfs = new Search(gr, gr.getHash(sourceUser));
 
-							Stack<Integer> shortChain = new Stack<Integer>();
-							//shortChain = minChain.pathTo(gr.returnHashtableValue(idUserLastBreadth));
+							Stack<Integer> minChain = new Stack<Integer>();
+							minChain = bfs.pathTo(gr.getHash(destUser));
 
-							while(!shortChain.isEmpty()) {
-								System.out.println(shortChain.pop());
+							while(!minChain.isEmpty()) {
+								System.out.println(minChain.pop());
 							}
 
 							break;
