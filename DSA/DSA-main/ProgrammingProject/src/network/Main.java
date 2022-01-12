@@ -172,7 +172,6 @@ public class Main {
 								while(!minChain.isEmpty()) 
 									System.out.println(minChain.pop());
 								
-
 								break;
 							case 2:
 								//12
@@ -188,7 +187,6 @@ public class Main {
 								while(!maxChain.isEmpty())
 									System.out.println(maxChain.pop());
 							
-								
 								break;
 							}
 						}
@@ -203,7 +201,7 @@ public class Main {
 
 
 				default:	
-					System.out.println("Invalid option. Please try again.");
+					System.out.println("Invalid option. Please try again > ");
 					break;
 				}
 

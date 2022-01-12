@@ -7,6 +7,7 @@ public class DepthFirstSearch {
 	private int[] edgeTo;		//
 	private final int s;		//source vertex
 
+	
 	public DepthFirstSearch(Graph gr, int s) {
 		this.s = s;
 		edgeTo = new int[gr.getVertices()];
