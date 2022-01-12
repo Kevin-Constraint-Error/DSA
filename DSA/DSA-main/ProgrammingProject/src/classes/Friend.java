@@ -2,6 +2,11 @@ package classes;
 import java.lang.Comparable;
 import java.util.ArrayList;
 
+/**
+ * Network user class
+ * @author morfeo
+ *
+ */
 public class Friend implements Comparable<Object> {
 	private String id;
 	private String name;
@@ -140,17 +145,23 @@ public class Friend implements Comparable<Object> {
 		return in;
 	}
 	
+	
+	// Used for exporting as raw original text format ("__,__,__,__,__,__,__,__,__,__,__")
 	public String printToFileRaw() {
 		return id + "," + name + "," + lastname + "," + birthDate + "," + gender + "," + birthPlace + "," + residence + "," + studiedAt + "," + workPlaces + "," + films + "," + groupCode + ",";
 	}
 	
+	
+	
+	
+	// OVERWRITTEN EQUALS METHOD
 	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof Friend))
 			return false;
 		
 		Friend f1 = (Friend) o;
-		if (this.getId().equals(f1.getId()))
+		if (this.getId().equals(f1.getId()))	// two friend instances are equal if their IDs are the same (regardless of other attributes)
 			return true;
 		else
 			return false;

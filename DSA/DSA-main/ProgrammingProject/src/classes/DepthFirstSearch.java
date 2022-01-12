@@ -1,6 +1,10 @@
 package classes;
 import java.util.Stack;
 
+/**
+ * DFS class done from scratch. Taking studied algorithm structure as reference
+ *
+ */
 public class DepthFirstSearch {
 
 	private boolean[] marked;	//marked[v] 

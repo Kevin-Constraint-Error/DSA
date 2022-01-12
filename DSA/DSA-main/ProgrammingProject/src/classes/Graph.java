@@ -4,12 +4,16 @@ import java.io.FileNotFoundException;
 import java.util.*;
 import java.lang.String;
 
+/**
+ * Graph class
+ *
+ */
 public class Graph {
 
 	private final int vertices;
 	private int edges;
 	private Bag<Integer>[] adj;
-	private Hashtable<String, Integer> ht = new Hashtable<String, Integer>();
+	private Hashtable<String, Integer> ht = new Hashtable<String, Integer>();	// Hashtable for mapping user ID with corresponding vertex nodes
 	private ArrayList<Friend> users = new ArrayList<Friend>();
 
 
@@ -96,13 +100,14 @@ public class Graph {
 
 
 
-
+	// Loads network backup and transforms data into a graph
 	public void convertData(String fpath, String relpath) throws FileNotFoundException {
 
 		String line = "";  
 
 		int i = 0;
-		//Creating Scanner instance to read File in Java
+		
+		// Creating Scanner instance to read user file in Java
 		Scanner input = new Scanner(new File("cliquesDSA2021/" + fpath));
 
 		while (input.hasNextLine()) {  
@@ -112,18 +117,19 @@ public class Graph {
 			users.add(user);
 
 			String id = info[0];
-			ht.put(id, i);
+			ht.put(id, i);	// Using user id's to map the network
 			i++;
 		}
 
 		input.close();
 
+		// Reusing Scanner instance to read relationship file in Java
 		input = new Scanner(new File("cliquesDSA2021/" + relpath)); 
 
 		while (input.hasNextLine()) {  
 			line = input.nextLine();
 			String[] rel = line.split(","); // use comma as separator
-			if (ht.get(rel[0]) != null && ht.get(rel[1]) != null)
+			if (ht.get(rel[0]) != null && ht.get(rel[1]) != null)	// Discard format from text file to only operate with existent users
 				addEdge(ht.get(rel[0]), ht.get(rel[1]));
 		}
 
@@ -132,14 +138,15 @@ public class Graph {
 
 
 
-
-	public int getHash(String idUser) {
+	// Retrieve vertex of given user
+	public int getHash(String idUser) {		
 		return ht.get(idUser);
 	}
-
 	
-	public String getID(int vertex) {
+	
 
+	// Retrieve user ID of given vertex
+	public String getID(int vertex) {
 		for (Map.Entry<String, Integer> entry : ht.entrySet())
 			if (vertex == entry.getValue())
 				return entry.getKey();

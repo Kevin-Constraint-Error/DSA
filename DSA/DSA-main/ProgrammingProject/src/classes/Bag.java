@@ -2,6 +2,11 @@ package classes;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+/**
+ * Bag class used in Graph
+ *
+ * @param <T>
+ */
 public class Bag<T> implements Iterable<T>{
 
 	private int count;

@@ -1,5 +1,9 @@
 package classes;
 
+/**
+ * Class where relationship data is stored, using friend ID's
+ *
+ */
 public class Relationships {
 
 	private String friend1;
@@ -30,6 +34,7 @@ public class Relationships {
 		return friend1 + " and " + friend2 + " are friends.";
 	}
 	
+	// Print relationship as raw text format ("__,__")
 	public String printToFile() {
 		return friend1 + "," + friend2;
 	}

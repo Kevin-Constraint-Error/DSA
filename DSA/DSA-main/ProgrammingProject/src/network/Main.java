@@ -76,14 +76,14 @@ public class Main {
 					}
 					break;
 
-				case 3:
+				case 3:														// export users to a text file
 					System.out.print("\nChoose file to export to... > ");
 					path = console.next();
 					net.exportUserdata(path);
 					System.out.println("\nData successfully saved in " + path);
 					break;
 
-				case 4:
+				case 4:														// filter information
 					System.out.println("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
 					System.out.println(" SEARCH INFORMATION OF USERS: ");
 					System.out.println("1. Filter by lastname to search for their friend connections");
@@ -136,7 +136,7 @@ public class Main {
 					System.out.print("\nNote: A backup of the network will be generated and exported as a file in order to compute calculations."
 							+ "\nDo you wish to continue? (Y/N)   > ");
 
-					boolean validCompl = false;
+					boolean validCompl = false;		// detects valid response to previous question (yes or no)
 					while (!validCompl) {
 						String compl = console.next();
 
@@ -212,7 +212,8 @@ public class Main {
 
 							case 3:
 								//13
-								net.computeMaximalClique();
+								net.computeMaximalClique();		// Maximal clique calculator algorithm (directly from Network class).
+																// Backup is not needed for this one.
 								break;
 							}
 						}

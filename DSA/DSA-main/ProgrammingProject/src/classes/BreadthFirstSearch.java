@@ -1,6 +1,10 @@
 package classes;
 import java.util.Stack;
 
+/**
+ * BFS class done from scratch. Taking studied algorithm structure as reference
+ *
+ */
 public class BreadthFirstSearch {
 
 	private static final int INFINITY = Integer.MAX_VALUE;
