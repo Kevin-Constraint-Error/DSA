@@ -14,7 +14,7 @@ import java.io.File;
 
 public class Network {
 
-	private static ArrayList<Object> ourNetwork;	// Stores friends and relationships (which is why we generalize type Object)
+	private static ArrayList<Object> net;	// Stores friends and relationships (which is why we generalize type Object)
 	private Stack<Friend> friendStack;
 	private int usercount;
 	private int relcount;
@@ -23,7 +23,7 @@ public class Network {
 
 
 	public Network() {
-		ourNetwork = new ArrayList<Object>();
+		net = new ArrayList<Object>();
 		friendStack = new Stack<Friend>();
 		usercount = relcount = 0;
 	}
@@ -36,17 +36,17 @@ public class Network {
 	 * @return
 	 */
 	public static ArrayList<Object> getOurNetwork() {
-		return ourNetwork;
+		return net;
 	}
 
 
 
-	
+
 	public int getUserCount() {
 		return usercount;
 	}
-	
-	
+
+
 	public int getRelCount() {
 		return relcount;
 	}
@@ -68,7 +68,7 @@ public class Network {
 	 */
 	public void addUser(String id, String name, String lastname, String birthdate, String gender, String birthplace, String residence, String studiedAt, String workedAt, String films, String gpc) {
 		Friend user = new Friend(id, name, lastname, birthdate, gender, birthplace, residence, studiedAt, workedAt, films, gpc);
-		ourNetwork.add(user);
+		net.add(user);
 		usercount++;
 	}
 
@@ -82,9 +82,15 @@ public class Network {
 	 * @param friend1
 	 * @param friend2
 	 */
-	public void addShip(String friend1, String friend2) {
-		Relationships rel = new Relationships(friend1, friend2);
-		ourNetwork.add(rel);
+	public void addShip(Friend friend1, Friend friend2) {
+		Relationships rel = new Relationships(friend1.getId(), friend2.getId());
+		net.remove(friend1);
+		net.remove(friend2);
+		friend1.addRelationship(friend2);
+		friend2.addRelationship(friend1);
+		net.add(friend1);
+		net.add(friend2);
+		net.add(rel);
 		relcount++;
 	}
 
@@ -177,9 +183,15 @@ public class Network {
 		File file = new File (writePath);
 		PrintWriter output = new PrintWriter (file);
 
-		for(Object user : ourNetwork)	// Casts objects depending on instance and prints them accordingly
-			if(user instanceof Friend) 
+		int count = 0;
+		for(Object user : net) {	// Casts objects depending on instance and prints them accordingly
+			if(user instanceof Friend) {
 				output.println(((Friend) user).print());
+				count++;
+			}
+			if (count == usercount)
+				break;
+		}
 		output.close();
 	}
 
@@ -207,21 +219,21 @@ public class Network {
 		File file = new File (writePath);
 		PrintWriter output = new PrintWriter (file);
 
-		for(Object user : ourNetwork)	// Casts objects depending on instance and prints them accordingly
+		for(Object user : net)	// Casts objects depending on instance and prints them accordingly
 			if(user instanceof Friend) 
 				output.println(((Friend) user).printToFileRaw());
 		output.close();
 	}
-	
-	
-	
+
+
+
 	private void exportReldata(String path) throws FileNotFoundException {
 		String writePath = "cliquesDSA2021/" + path;
 
 		File file = new File (writePath);
 		PrintWriter output = new PrintWriter (file);
 
-		for(Object rel : ourNetwork)	// Casts objects depending on instance and prints them accordingly
+		for(Object rel : net)	// Casts objects depending on instance and prints them accordingly
 			if(rel instanceof Relationships) 
 				output.println(((Relationships) rel).printToFile());
 		output.close();
@@ -250,27 +262,27 @@ public class Network {
 		while (scnr.hasNextLine()) {  
 			line = scnr.nextLine();
 			String[] input = line.split(splitBy); // Comma used as separator in input files 
-			
+
 			if (input.length > 2)
 				throw new ArrayIndexOutOfBoundsException();
-			
+
 			Friend f1 = new Friend(input[0]);
 			Friend f2 = new Friend(input[1]);
 			boolean isF1InNetwork = false;
 			boolean isF2InNetwork = false;
 			int i = 0;
-			while (i < ourNetwork.size() && (!isF1InNetwork || !isF2InNetwork)) {
-				if (ourNetwork.get(i) instanceof Friend) {
-					if (((Friend) ourNetwork.get(i)).equals(f1))
+			while (i < net.size() && (!isF1InNetwork || !isF2InNetwork)) {
+				if (net.get(i) instanceof Friend) {
+					if (((Friend) net.get(i)).equals(f1))
 						isF1InNetwork = true;
-					else if (((Friend) ourNetwork.get(i)).equals(f2))
+					else if (((Friend) net.get(i)).equals(f2))
 						isF2InNetwork = true;
 				}
 				i++;
 			}
 
 			if (isF1InNetwork && isF2InNetwork)		
-				addShip(input[0], input[1]);
+				addShip(f1, f2);
 		}
 		scnr.close();
 	}
@@ -285,10 +297,10 @@ public class Network {
 	 * @return
 	 */
 	private String retrieveRelInfo(String f) {
-		for (int i = 0; i < ourNetwork.size(); i++) 
-			if (ourNetwork.get(i) instanceof Friend)
-				if (f.equals(((Friend) ourNetwork.get(i)).getId())) 
-					return ((Friend) ourNetwork.get(i)).getId() + " " + ((Friend) ourNetwork.get(i)).getLastname();
+		for (int i = 0; i < net.size(); i++) 
+			if (net.get(i) instanceof Friend)
+				if (f.equals(((Friend) net.get(i)).getId())) 
+					return ((Friend) net.get(i)).getId() + " " + ((Friend) net.get(i)).getLastname();
 		return "";
 	}
 
@@ -309,10 +321,10 @@ public class Network {
 		Friend f1;      
 
 		// Push found friends onto friend stack
-		for(int i = 0; i < ourNetwork.size(); i++) {
-			if(ourNetwork.get(i) instanceof Friend) {
-				if(((Friend) ourNetwork.get(i)).getLastname().equals(lastname)) {
-					friendStack.push((Friend) ourNetwork.get(i));
+		for(int i = 0; i < net.size(); i++) {
+			if(net.get(i) instanceof Friend) {
+				if(((Friend) net.get(i)).getLastname().equals(lastname)) {
+					friendStack.push((Friend) net.get(i));
 				}
 			}
 		}
@@ -324,24 +336,24 @@ public class Network {
 		while(!friendStack.isEmpty()) {
 			f1 = friendStack.pop();
 			boolean newf = true;
-			for(int j = 0; j < ourNetwork.size(); j++) {
-				if(ourNetwork.get(j) instanceof Relationships) {
+			for(int j = 0; j < net.size(); j++) {
+				if(net.get(j) instanceof Relationships) {
 					if(select == 1) { // Print to console
 						if (newf) {
 							System.out.println("\n  Friends of " + f1.getName() + " " + f1.getLastname() + ": ");
 							newf = false;
 						}
 
-						if(((Relationships) ourNetwork.get(j)).getFriend1().equals(f1.getId())) {
-							System.out.println("    — " + retrieveRelInfo(((Relationships) ourNetwork.get(j)).getFriend2()));
-						} else if(((Relationships) ourNetwork.get(j)).getFriend2().equals(f1.getId())){
-							System.out.println("    — " + retrieveRelInfo(((Relationships) ourNetwork.get(j)).getFriend1()));
+						if(((Relationships) net.get(j)).getFriend1().equals(f1.getId())) {
+							System.out.println("    — " + retrieveRelInfo(((Relationships) net.get(j)).getFriend2()));
+						} else if(((Relationships) net.get(j)).getFriend2().equals(f1.getId())){
+							System.out.println("    — " + retrieveRelInfo(((Relationships) net.get(j)).getFriend1()));
 						}
 					} else if(select == 0) { // Export to text file
-						if(((Relationships) ourNetwork.get(j)).getFriend1().equals(f1.getId())) {
-							output.println(retrieveRelInfo(((Relationships) ourNetwork.get(j)).getFriend2()));
-						}else if(((Relationships) ourNetwork.get(j)).getFriend2().equals(f1.getId())){
-							output.println(retrieveRelInfo(((Relationships) ourNetwork.get(j)).getFriend1()));
+						if(((Relationships) net.get(j)).getFriend1().equals(f1.getId())) {
+							output.println(retrieveRelInfo(((Relationships) net.get(j)).getFriend2()));
+						}else if(((Relationships) net.get(j)).getFriend2().equals(f1.getId())){
+							output.println(retrieveRelInfo(((Relationships) net.get(j)).getFriend1()));
 						}
 					}
 				}
@@ -363,12 +375,12 @@ public class Network {
 	public void printByCity(String city) {
 		System.out.println("\n  People living in " + city + ": ");
 
-		for(int i = 0; i < ourNetwork.size(); i++) {
-			if(ourNetwork.get(i) instanceof Friend) {
-				if(((Friend) ourNetwork.get(i)).getBirthPlace().equals(city)) {
+		for(int i = 0; i < net.size(); i++) {
+			if(net.get(i) instanceof Friend) {
+				if(((Friend) net.get(i)).getBirthPlace().equals(city)) {
 					System.out.print("    — ");
-					System.out.print(((Friend) ourNetwork.get(i)).getId() + " ");
-					System.out.print(((Friend) ourNetwork.get(i)).getLastname() + "\n");
+					System.out.print(((Friend) net.get(i)).getId() + " ");
+					System.out.print(((Friend) net.get(i)).getLastname() + "\n");
 				}
 			}
 		}		
@@ -389,11 +401,11 @@ public class Network {
 		ArrayList<Friend> friendList = new ArrayList<Friend>();
 		String[] bd = new String[2];
 
-		for(int i = 0; i < ourNetwork.size(); i++) {
-			if(ourNetwork.get(i) instanceof Friend) {
-				bd = ((Friend) ourNetwork.get(i)).getBirthDate().split("-");
+		for(int i = 0; i < net.size(); i++) {
+			if(net.get(i) instanceof Friend) {
+				bd = ((Friend) net.get(i)).getBirthDate().split("-");
 				if(Integer.parseInt(bd[2]) >= year1 && Integer.parseInt(bd[2]) <= year2) {
-					friendList.add((Friend) ourNetwork.get(i));
+					friendList.add((Friend) net.get(i));
 				}
 			}
 		}
@@ -423,10 +435,10 @@ public class Network {
 
 		while (scnr.hasNextLine()) {  
 			line = scnr.nextLine();
-			for(int i = 0; i < ourNetwork.size(); i++) {
-				if(ourNetwork.get(i) instanceof Friend) {
-					if(((Friend) ourNetwork.get(i)).getId().equals(line)) {
-						friendStack.push((Friend) ourNetwork.get(i)); // their hometown will be used later
+			for(int i = 0; i < net.size(); i++) {
+				if(net.get(i) instanceof Friend) {
+					if(((Friend) net.get(i)).getId().equals(line)) {
+						friendStack.push((Friend) net.get(i)); // their hometown will be used later
 					}
 				}
 			}
@@ -440,13 +452,13 @@ public class Network {
 			f1 = friendStack.pop();
 			System.out.println("\n  People living in " + f1.getBirthPlace() + ": ");
 
-			for(int i = 0; i < ourNetwork.size(); i++) {
-				if(ourNetwork.get(i) instanceof Friend) {
-					if(f1.getBirthPlace().equals(((Friend) ourNetwork.get(i)).getResidence())) {
-						String[] stdats = ((Friend)ourNetwork.get(i)).getStudiedAt().split(";");
-						System.out.print("    — " + ((Friend)ourNetwork.get(i)).getName() + " " + 
-								((Friend)ourNetwork.get(i)).getLastname() + 
-								"  —  Born in " + ((Friend)ourNetwork.get(i)).getBirthPlace() + 
+			for(int i = 0; i < net.size(); i++) {
+				if(net.get(i) instanceof Friend) {
+					if(f1.getBirthPlace().equals(((Friend) net.get(i)).getResidence())) {
+						String[] stdats = ((Friend)net.get(i)).getStudiedAt().split(";");
+						System.out.print("    — " + ((Friend)net.get(i)).getName() + " " + 
+								((Friend)net.get(i)).getLastname() + 
+								"  —  Born in " + ((Friend)net.get(i)).getBirthPlace() + 
 								"  —  Studied at ");
 						int j = 0;
 						for(String pl : stdats) {
@@ -476,18 +488,18 @@ public class Network {
 		String films = "";
 		ArrayList<String> filmGroups = new ArrayList<String>();
 		ArrayList<String> classes = new ArrayList<String>();
-		for (int i = 0; i < ourNetwork.size(); i++) {
-			if(ourNetwork.get(i) instanceof Friend) {
-				films = ((Friend) ourNetwork.get(i)).getFilms();
+		for (int i = 0; i < net.size(); i++) {
+			if(net.get(i) instanceof Friend) {
+				films = ((Friend) net.get(i)).getFilms();
 				if(filmGroups.size() == 0) {
 					filmGroups.add(films);
-					classes.add(((Friend) ourNetwork.get(i)).getName() + " " + ((Friend) ourNetwork.get(i)).getLastname());
+					classes.add(((Friend) net.get(i)).getName() + " " + ((Friend) net.get(i)).getLastname());
 				} else if(!filmGroups.contains(films)){
 					filmGroups.add(films);
-					classes.add(((Friend) ourNetwork.get(i)).getName() + " " + ((Friend) ourNetwork.get(i)).getLastname());
+					classes.add(((Friend) net.get(i)).getName() + " " + ((Friend) net.get(i)).getLastname());
 				} else {
 					String existingUsers = classes.get(filmGroups.indexOf(films)); // All users in the same class are in one string split by commas
-					classes.set(filmGroups.indexOf(films), existingUsers + ", " + ((Friend) ourNetwork.get(i)).getName() + " " + ((Friend) ourNetwork.get(i)).getLastname());
+					classes.set(filmGroups.indexOf(films), existingUsers + ", " + ((Friend) net.get(i)).getName() + " " + ((Friend) net.get(i)).getLastname());
 				}
 			}
 		}
@@ -496,5 +508,64 @@ public class Network {
 			System.out.println("  Members: " + classes.get(i));
 		}
 	}
+
+
+	public void computeMaximalClique() {
+		int count = 0;
+		ArrayList<Friend> users = new ArrayList<Friend>();
+
+		for (int i = 0; i < net.size(); i++)
+			if(net.get(i) instanceof Friend)
+				users.add((Friend) net.get(i));
+
+		for (Friend f : users) {
+
+			ArrayList<Friend> connections = new ArrayList<Friend>();   
+
+			Stack<Friend> userStack = new Stack<Friend>();
+			userStack.addAll(users);
+
+			ArrayList<Friend> cliques = getCliques(f, connections, userStack);
+
+			if(cliques.size() >= 4) {
+				count++;
+
+				String output = "\nCLIQUE " + count + ": ";
+				for (Friend current : connections) 
+					output += current.getName() + ", ";
+
+				System.out.println(output.substring(0, output.length() - 2));
+			}
+		}
+	}
+
+
+
+	public ArrayList<Friend> getCliques(Friend f, ArrayList<Friend> connections, Stack<Friend> stack) {
+		ArrayList<Friend> rels = f.getRelationships();
+		ArrayList<Friend> clique = new ArrayList<Friend>();
+
+		if(stack.isEmpty() || rels.size() < connections.size()) 
+			return connections;
+
+		connections.add(f);
+
+		for(Friend r : rels) {
+			if(!connections.contains(r) && r.getRelationships().containsAll(connections) && stack.contains(r)) { //all contained in friends of person.
+				stack.remove(r);
+				clique = getCliques(r, connections, stack);
+			} else 
+				stack.remove(r);            
+		} 
+
+		return clique;
+
+	}
+
+
+
+
+
+
 
 }

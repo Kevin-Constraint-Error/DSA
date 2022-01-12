@@ -158,49 +158,61 @@ public class Main {
 							switch(sel) {
 							case 1:
 								//11
-								System.out.print("Enter the id of the first user > ");
-								String sourceUser = console.next();
+								try {
+									System.out.print("Enter the id of the first user > ");
+									String sourceUser = console.next();
 
-								System.out.print("Enter the id of the second user > ");
-								String destUser = console.next();
+									System.out.print("Enter the id of the second user > ");
+									String destUser = console.next();
 
-								BreadthFirstSearch bfs = new BreadthFirstSearch(gr, gr.getHash(sourceUser));
+									BreadthFirstSearch bfs = new BreadthFirstSearch(gr, gr.getHash(sourceUser));
 
-								Stack<Integer> minChain = new Stack<Integer>();
-								minChain = bfs.pathTo(gr.getHash(destUser));
+									Stack<Integer> minChain = new Stack<Integer>();
+									minChain = bfs.pathTo(gr.getHash(destUser));
 
-								String ch = "\n";
-								while(!minChain.isEmpty())
-									ch += gr.getID(minChain.pop()) + " -> ";
-								
-								System.out.println(ch.substring(0, ch.length() - 4));
-								
+									String ch = "\n";
+									while(!minChain.isEmpty())
+										ch += gr.getID(minChain.pop()) + " -> ";
+
+									System.out.println(ch.substring(0, ch.length() - 4));
+
+								} catch (NullPointerException e) {
+									e.printStackTrace();
+									System.out.println("\nError: One or both of the given IDs could not be found on the network.");
+								}
 								break;
-								
-								
+
+
 							case 2:
 								//12
-								System.out.print("Enter the id of the first user > ");
-								sourceUser = console.next();
-								System.out.print("Enter the id of the second user > ");
-								destUser = console.next();
-								
-								DepthFirstSearch dfs = new DepthFirstSearch(gr, gr.getHash(sourceUser));
-								Stack<Integer> maxChain = new Stack<Integer>();
-								maxChain = dfs.pathTo(gr.getHash(destUser));
-								
-								
-								ch = "\n";
-								while(!maxChain.isEmpty())
-									ch += gr.getID(maxChain.pop()) + " -> ";
-								
-								System.out.println(ch.substring(0, ch.length() - 4));
-							
+								try {
+									System.out.print("Enter the id of the first user > ");
+									String sourceUser = console.next();
+									System.out.print("Enter the id of the second user > ");
+									String destUser = console.next();
+
+									DepthFirstSearch dfs = new DepthFirstSearch(gr, gr.getHash(sourceUser));
+									Stack<Integer> maxChain = new Stack<Integer>();
+									maxChain = dfs.pathTo(gr.getHash(destUser));
+
+
+									String ch = "\n";
+									while(!maxChain.isEmpty())
+										ch += gr.getID(maxChain.pop()) + " -> ";
+
+									System.out.println(ch.substring(0, ch.length() - 4));
+								} catch (NullPointerException e) {
+									e.printStackTrace();
+									System.out.println("\nError: One or both of the given IDs could not be found on the network.");
+
+								}
+
+
 								break;
-								
+
 							case 3:
 								//13
-								
+
 							}
 						}
 
@@ -210,7 +222,7 @@ public class Main {
 						else 
 							System.out.print("Invalid input. Please try again > ");
 					}
-					
+
 					break;
 
 

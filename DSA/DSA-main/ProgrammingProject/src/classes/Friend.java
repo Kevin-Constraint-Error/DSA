@@ -1,5 +1,6 @@
 package classes;
 import java.lang.Comparable;
+import java.util.ArrayList;
 
 public class Friend implements Comparable<Object> {
 	private String id;
@@ -13,10 +14,13 @@ public class Friend implements Comparable<Object> {
 	private String workPlaces;
 	private String films;
 	private String groupCode;
+	private ArrayList<Friend> relationships;
+	
 	
 	
 	public Friend(String id) {
 		this.id = id;
+		relationships = new ArrayList<Friend>();
 	}
 	
 	public Friend(String id, String name, String lastname, String birthdate, String gender, String birthPlace, String residence, String studiedAt, String workPlaces, String films, String groupCode) {
@@ -31,6 +35,7 @@ public class Friend implements Comparable<Object> {
 		this.workPlaces = workPlaces;
 		this.films = films;
 		this.groupCode = groupCode;
+		relationships = new ArrayList<Friend>();
 	}
 	
 	public String getId() {
@@ -121,6 +126,15 @@ public class Friend implements Comparable<Object> {
 		this.groupCode = groupCode;
 	}
 	
+	public ArrayList<Friend> getRelationships() {
+		return relationships;
+	}
+
+	public void addRelationship(Friend r) {
+		relationships.add(r);
+	}
+
+	
 	public String print() {
 		String in = "User's Id: " + id + ", Name: " + name + ", Lastname: " + lastname + ", Birthdate: " + birthDate + ", Gender: " + gender + ", Birthplace: " + birthPlace + ", Home: " + residence + ", Studied at: " + studiedAt + ", Work places: " + workPlaces + ", Films: " + films + ", Groupcode: " + groupCode;
 		return in;
@@ -130,10 +144,8 @@ public class Friend implements Comparable<Object> {
 		return id + "," + name + "," + lastname + "," + birthDate + "," + gender + "," + birthPlace + "," + residence + "," + studiedAt + "," + workPlaces + "," + films + "," + groupCode + ",";
 	}
 	
-	// IS EQUAL IF THEIR ID'S MATCH
-	@Override
-	public boolean equals(Object o) {
-		Friend f1 = (Friend) o;
+	
+	public boolean equals(Friend f1) {
 		if (this.getId().equals(f1.getId()))
 			return true;
 		else
