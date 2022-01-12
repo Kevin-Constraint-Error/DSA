@@ -19,9 +19,15 @@ public class Network {
 	private int usercount;
 	private int relcount;
 
+	// Lists used for clique computation
+	private ArrayList<ArrayList<Friend>> cliqueRoster;	
+	private ArrayList<Friend> users;
 
 
 
+	/**
+	 * Constructor
+	 */
 	public Network() {
 		net = new ArrayList<Object>();
 		friendStack = new Stack<Friend>();
@@ -41,17 +47,28 @@ public class Network {
 
 
 
-
+	/**
+	 * Returns user count
+	 * @return
+	 */
 	public int getUserCount() {
 		return usercount;
 	}
 
-
+	
+	
+	
+	/**
+	 * Returns relationship count
+	 * @return
+	 */
 	public int getRelCount() {
 		return relcount;
 	}
 
 
+	
+	
 	/**
 	 * Adds user to the network with given parameters
 	 * @param id
@@ -84,13 +101,20 @@ public class Network {
 	 */
 	public void addShip(Friend friend1, Friend friend2) {
 		Relationships rel = new Relationships(friend1.getId(), friend2.getId());
-		net.remove(friend1);
+
+		Friend f1 = (Friend) net.get(net.indexOf(friend1));
+		Friend f2 = (Friend) net.get(net.indexOf(friend2));
+
+		net.remove(friend1);		// Necessary to update friends in the network with the new relationship data
 		net.remove(friend2);
-		friend1.addRelationship(friend2);
-		friend2.addRelationship(friend1);
-		net.add(friend1);
-		net.add(friend2);
+
+		f1.addRelationship(f2);
+		f2.addRelationship(f1);
+
+		net.add(f1);
+		net.add(f2);
 		net.add(rel);
+
 		relcount++;
 	}
 
@@ -183,17 +207,14 @@ public class Network {
 		File file = new File (writePath);
 		PrintWriter output = new PrintWriter (file);
 
-		int count = 0;
-		for(Object user : net) {	// Casts objects depending on instance and prints them accordingly
-			if(user instanceof Friend) {
+		for(Object user : net) 	// Casts objects depending on instance and prints them accordingly
+			if(user instanceof Friend) 
 				output.println(((Friend) user).print());
-				count++;
-			}
-			if (count == usercount)
-				break;
-		}
+
 		output.close();
 	}
+
+
 
 
 
@@ -208,8 +229,12 @@ public class Network {
 	}
 
 
+
+
+
+
 	/**
-	 * Outputs network data into a new text file
+	 * Exports network users into raw original text format for network backup
 	 * @throws FileNotFoundException
 	 */
 
@@ -227,6 +252,11 @@ public class Network {
 
 
 
+	/**
+	 * Exports network relationships into raw original text format for network backup
+	 * @param path
+	 * @throws FileNotFoundException
+	 */
 	private void exportReldata(String path) throws FileNotFoundException {
 		String writePath = "cliquesDSA2021/" + path;
 
@@ -266,8 +296,14 @@ public class Network {
 			if (input.length > 2)
 				throw new ArrayIndexOutOfBoundsException();
 
-			Friend f1 = new Friend(input[0]);
+			Friend f1 = new Friend(input[0]);	  // new Friend instances from retrieved id on file
 			Friend f2 = new Friend(input[1]);
+
+			if(net.contains(f1))
+				f1 = (Friend) net.get(net.indexOf(f1));      // retrieves full Friend data from network corresponding to the previous ID
+			if (net.contains(f2))
+				f2 = (Friend) net.get(net.indexOf(f2));
+
 			boolean isF1InNetwork = false;
 			boolean isF2InNetwork = false;
 			int i = 0;
@@ -281,8 +317,8 @@ public class Network {
 				i++;
 			}
 
-			if (isF1InNetwork && isF2InNetwork)		
-				addShip(f1, f2);
+			if (isF1InNetwork && isF2InNetwork)				// Discards adding relationships of members that don't exist
+				addShip(f1, f2);							
 		}
 		scnr.close();
 	}
@@ -360,7 +396,7 @@ public class Network {
 			}
 		} 
 
-		output.close(); //TODO Hacer para que si se selecciona por consola, no cree un archivo de texto vacio sin usar
+		output.close();
 	}
 
 
@@ -416,6 +452,7 @@ public class Network {
 			System.out.println("    — " + f.getName() + " " + f.getLastname() + " was born in " + f.getBirthDate());
 		}
 	}
+
 
 
 
@@ -481,6 +518,7 @@ public class Network {
 
 
 
+
 	/**
 	 * Prints all different classes into console. A class is a group of users that like exactly the same films.
 	 */
@@ -510,52 +548,84 @@ public class Network {
 	}
 
 
+
+
+
+
+	/**
+	 * Performs maximal clique calculations on the network and prints those who are bigger than 4 members
+	 */
 	public void computeMaximalClique() {
 		int count = 0;
-		ArrayList<Friend> users = new ArrayList<Friend>();
+		boolean found;
 
-		for (int i = 0; i < net.size(); i++)
+		cliqueRoster = new ArrayList<ArrayList<Friend>>();		// Collection of all retrieved cliques
+		users = new ArrayList<Friend>();						
+
+		for (int i = 0; i < net.size(); i++)					// Creating a copy of the network that only contains users
 			if(net.get(i) instanceof Friend)
 				users.add((Friend) net.get(i));
 
+		// Searching for cliques for every user
 		for (Friend f : users) {
+			found = false;
+			ArrayList<Friend> connections = new ArrayList<Friend>();   // To store links between users
+			ArrayList<Friend> visited = new ArrayList<Friend>();	   // Search marking
 
-			ArrayList<Friend> connections = new ArrayList<Friend>();   
+			ArrayList<Friend> clique = cliqueSearch(f, connections, visited);
 
-			Stack<Friend> userStack = new Stack<Friend>();
-			userStack.addAll(users);
+			// Discard duplicated clique
+			for (int i = 0; i < cliqueRoster.size(); i++)
+				if(cliqueRoster.get(i).containsAll(clique)) {
+					found = true;
+					break;
+				}
 
-			ArrayList<Friend> cliques = getCliques(f, connections, userStack);
-
-			if(cliques.size() >= 4) {
+			// Print clique bigger than 4 members
+			if(!found && clique.size() >= 4) {
 				count++;
 
-				String output = "\nCLIQUE " + count + ": ";
+				String output = "\nClique " + count + ": ";
 				for (Friend current : connections) 
 					output += current.getName() + ", ";
 
 				System.out.println(output.substring(0, output.length() - 2));
 			}
+			cliqueRoster.add(clique);
 		}
 	}
 
 
 
-	public ArrayList<Friend> getCliques(Friend f, ArrayList<Friend> connections, Stack<Friend> stack) {
+
+
+	/**
+	 * Performs search to build entire clique of people. Recursive method. 
+	 * @param f
+	 * @param connections
+	 * @param visited
+	 * @param usercopy
+	 * @return
+	 */
+	public ArrayList<Friend> cliqueSearch(Friend f, ArrayList<Friend> connections, ArrayList<Friend> visited) {
 		ArrayList<Friend> rels = f.getRelationships();
 		ArrayList<Friend> clique = new ArrayList<Friend>();
 
-		if(stack.isEmpty() || rels.size() < connections.size()) 
+		connections.add(f);	 // Add link
+
+		// Return clique if all users have been visited or the amount of user's friends is smaller than the total connections
+		if(rels.size() <= connections.size() || visited.size() == users.size()) 
 			return connections;
 
-		connections.add(f);
-
+		// Otherwise, analyze friend list
 		for(Friend r : rels) {
-			if(!connections.contains(r) && r.getRelationships().containsAll(connections) && stack.contains(r)) { //all contained in friends of person.
-				stack.remove(r);
-				clique = getCliques(r, connections, stack);
+			
+			// If friend isn't connected nor visited, but the friend's friends are already connected
+			if(!connections.contains(r) && !visited.contains(r) && r.getRelationships().containsAll(connections)) {
+				visited.add(r);									 // visit friend
+				clique = cliqueSearch(r, connections, visited);	 // keep searching
 			} else 
-				stack.remove(r);            
+				visited.add(r);    								 // otherwise, just visit.     						  
 		} 
 
 		return clique;

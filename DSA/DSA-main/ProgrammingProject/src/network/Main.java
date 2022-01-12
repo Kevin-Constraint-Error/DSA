@@ -212,7 +212,8 @@ public class Main {
 
 							case 3:
 								//13
-
+								net.computeMaximalClique();
+								break;
 							}
 						}
 

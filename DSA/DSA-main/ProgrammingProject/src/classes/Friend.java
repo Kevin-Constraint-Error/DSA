@@ -144,8 +144,12 @@ public class Friend implements Comparable<Object> {
 		return id + "," + name + "," + lastname + "," + birthDate + "," + gender + "," + birthPlace + "," + residence + "," + studiedAt + "," + workPlaces + "," + films + "," + groupCode + ",";
 	}
 	
-	
-	public boolean equals(Friend f1) {
+	@Override
+	public boolean equals(Object o) {
+		if (!(o instanceof Friend))
+			return false;
+		
+		Friend f1 = (Friend) o;
 		if (this.getId().equals(f1.getId()))
 			return true;
 		else
