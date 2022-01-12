@@ -191,12 +191,30 @@ public class Network {
 	 */
 
 	public void backupNetwork() throws FileNotFoundException {
-		exportUserdata("fNetwork.txt");
+		exportRawUserdata("fNetwork.txt");
 		exportReldata("relNetwork.txt");
 	}
 
 
+	/**
+	 * Outputs network data into a new text file
+	 * @throws FileNotFoundException
+	 */
 
+	private void exportRawUserdata(String path) throws FileNotFoundException {
+		String writePath = "cliquesDSA2021/" + path;
+
+		File file = new File (writePath);
+		PrintWriter output = new PrintWriter (file);
+
+		for(Object user : ourNetwork)	// Casts objects depending on instance and prints them accordingly
+			if(user instanceof Friend) 
+				output.println(((Friend) user).printToFileRaw());
+		output.close();
+	}
+	
+	
+	
 	private void exportReldata(String path) throws FileNotFoundException {
 		String writePath = "cliquesDSA2021/" + path;
 

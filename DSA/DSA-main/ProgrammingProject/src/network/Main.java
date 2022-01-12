@@ -9,7 +9,6 @@ import classes.Graph;
 import classes.BreadthFirstSearch;
 import classes.DepthFirstSearch;
 
-//is it working?
 public class Main {
 
 	public static void main(String[] args) {
@@ -147,8 +146,9 @@ public class Main {
 							System.out.println("\nExporting data...");
 							net.backupNetwork();
 
-							Graph gr = new Graph(net.getUserCount(), net.getRelCount(), "fNetwork.txt", "relNetwork.txt");
+							Graph gr = new Graph(net.getUserCount(), "fNetwork.txt", "relNetwork.txt");
 
+							System.out.println("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
 							System.out.println("\nWhat would you like to search for? ");
 							System.out.println("1. Shortest chain between two given users");
 							System.out.println("2. Largest chain between two given users");
@@ -158,10 +158,10 @@ public class Main {
 							switch(sel) {
 							case 1:
 								//11
-								System.out.println("Enter the id of the first user > ");
+								System.out.print("Enter the id of the first user > ");
 								String sourceUser = console.next();
 
-								System.out.println("Enter the id of the second user > ");
+								System.out.print("Enter the id of the second user > ");
 								String destUser = console.next();
 
 								BreadthFirstSearch bfs = new BreadthFirstSearch(gr, gr.getHash(sourceUser));
@@ -169,25 +169,38 @@ public class Main {
 								Stack<Integer> minChain = new Stack<Integer>();
 								minChain = bfs.pathTo(gr.getHash(destUser));
 
-								while(!minChain.isEmpty()) 
-									System.out.println(minChain.pop());
+								String ch = "\n";
+								while(!minChain.isEmpty())
+									ch += gr.getID(minChain.pop()) + " -> ";
+								
+								System.out.println(ch.substring(0, ch.length() - 4));
 								
 								break;
+								
+								
 							case 2:
 								//12
-								System.out.println("Enter the id of the first user > ");
+								System.out.print("Enter the id of the first user > ");
 								sourceUser = console.next();
-								System.out.println("Enter the id of the second user > ");
+								System.out.print("Enter the id of the second user > ");
 								destUser = console.next();
 								
 								DepthFirstSearch dfs = new DepthFirstSearch(gr, gr.getHash(sourceUser));
 								Stack<Integer> maxChain = new Stack<Integer>();
 								maxChain = dfs.pathTo(gr.getHash(destUser));
 								
+								
+								ch = "\n";
 								while(!maxChain.isEmpty())
-									System.out.println(maxChain.pop());
+									ch += gr.getID(maxChain.pop()) + " -> ";
+								
+								System.out.println(ch.substring(0, ch.length() - 4));
 							
 								break;
+								
+							case 3:
+								//13
+								
 							}
 						}
 
@@ -197,6 +210,9 @@ public class Main {
 						else 
 							System.out.print("Invalid input. Please try again > ");
 					}
+					
+					break;
+
 
 
 

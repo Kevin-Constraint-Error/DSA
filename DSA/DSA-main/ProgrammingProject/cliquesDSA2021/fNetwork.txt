@@ -1,0 +1,8 @@
+Mike29,Mikel,Fernandez,02-04-1995,male,Donostia,Errenteria,Koldo Mitxelena;EHU,Donostia;Barcelona,Avatar;The Smurfs;The Smurfs 2,G612072,
+Iker78,Iker,Rodriguez,09-12-1993,male,Madrid,Donostia,La Salle;UCM,Madrid;Barcelona;Donostia,The Smurfs 2;Titanic;Spider-Man,G612072,
+Fern33,Fernando,Alvarez,13-01-1988,male,Barcelona,Donostia,La Salle;UB,Barcelona,Ocean's 8;Avatar,G612072,
+Paul12,Paula,Martinez,19-10-2000,female,Oviedo,Intxaurrondo,Corazon de Maria;La Inmaculada,Oviedo;Donostia,Avatar;The Smurfs 2;The Lion King,G612072,
+Mari09,Maria Jose,Smith,23-02-1995,female,London,Donostia,La Inmaculada;EHU;UC3M,New York;Silicon Valley,Avatar;Titanic;Spider-Man,G612072,
+John65,Jonathan,Sparrow,04-07-1992,male,Dallas,Hondarribia,St. Patrick School;DU,Dallas;Donostia,Jurassic Park;The Lion King;Titanic,G612072,
+Carl13,Carlos Daniel,Loarte,28-02-1999,male,Castellon,Astigarraga,Koldo Mitxelena;EHU,Donostia;Pamplona,Avatar;Matrix;The Smurfs,G612072,
+Lour99,Lourdes,Zamorano,23-01-2000,female,Palencia,Tolosa,La Inmaculada;EHU,Vitoria;Donostia,Avatar;Matrix;The Smurfs,G612072,

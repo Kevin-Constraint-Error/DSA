@@ -126,6 +126,9 @@ public class Friend implements Comparable<Object> {
 		return in;
 	}
 	
+	public String printToFileRaw() {
+		return id + "," + name + "," + lastname + "," + birthDate + "," + gender + "," + birthPlace + "," + residence + "," + studiedAt + "," + workPlaces + "," + films + "," + groupCode + ",";
+	}
 	
 	// IS EQUAL IF THEIR ID'S MATCH
 	@Override
