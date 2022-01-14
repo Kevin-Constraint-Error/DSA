@@ -9,8 +9,15 @@ import classes.Graph;
 import classes.BreadthFirstSearch;
 import classes.DepthFirstSearch;
 
+/**
+ * Class for main program / network console menu
+ */
 public class Main {
 
+	/**
+	 * Main program
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		try {  
 			Network net = new Network();
@@ -251,7 +258,7 @@ public class Main {
 
 			console.close();
 
-		} catch (IOException e)  {  
+		} catch (IOException e)  { // files not found  
 			e.printStackTrace();  
 		}
 	}

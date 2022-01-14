@@ -12,16 +12,19 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.File;
 
+/**
+ * Main network class
+ */
 public class Network {
 
 	private static ArrayList<Object> net;	// Stores friends and relationships (which is why we generalize type Object)
-	private Stack<Friend> friendStack;
-	private int usercount;
-	private int relcount;
+	private Stack<Friend> friendStack;		// used as auxiliary 
+	private int usercount;					// total number of users
+	private int relcount;					// total number of connections
 
 	// Lists used for clique computation
-	private ArrayList<ArrayList<Friend>> cliqueRoster;	
-	private ArrayList<Friend> users;
+	private ArrayList<ArrayList<Friend>> cliqueRoster;	// list of all processed cliques
+	private ArrayList<Friend> users;					// list of users in network
 
 
 
@@ -29,8 +32,9 @@ public class Network {
 	 * Constructor
 	 */
 	public Network() {
-		net = new ArrayList<Object>();
-		friendStack = new Stack<Friend>();
+		net = new ArrayList<Object>(); 		// Stores ALL object-types (Friend and Relationships) into one single instance (list).
+											// This will be the representation of the network, where all data will be stored
+		friendStack = new Stack<Friend>();	// used as auxiliary for the future
 		usercount = relcount = 0;
 	}
 
