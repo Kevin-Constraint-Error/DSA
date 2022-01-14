@@ -436,7 +436,7 @@ public class Network {
 	 * @param year1
 	 * @param year2
 	 */
-	public void printbyTimeFrame(int year1, int year2) {
+	public void printByTimeFrame(int year1, int year2) {
 		//the first year has to be the oldest year
 		ArrayList<Friend> friendList = new ArrayList<Friend>();
 		String[] bd = new String[2];
@@ -585,6 +585,7 @@ public class Network {
 					break;
 				}
 
+	
 			// Print clique bigger than 4 members
 			if(!found && clique.size() >= 4) {
 				count++;
@@ -611,7 +612,7 @@ public class Network {
 	 * @param usercopy
 	 * @return
 	 */
-	public ArrayList<Friend> cliqueSearch(Friend f, ArrayList<Friend> connections, ArrayList<Friend> visited) {
+	private ArrayList<Friend> cliqueSearch(Friend f, ArrayList<Friend> connections, ArrayList<Friend> visited) {
 		ArrayList<Friend> rels = f.getRelationships();
 		ArrayList<Friend> clique = new ArrayList<Friend>();
 

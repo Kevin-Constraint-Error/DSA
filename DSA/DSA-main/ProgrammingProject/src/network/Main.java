@@ -124,7 +124,7 @@ public class Main {
 						int date1 = console.nextInt();
 						System.out.print("Enter year of time frame end > ");
 						int date2 = console.nextInt();
-						net.printbyTimeFrame(date1, date2);
+						net.printByTimeFrame(date1, date2);
 						break;
 					case 4 :
 						//9
