@@ -303,7 +303,7 @@ public class Network {
 			Friend f1 = new Friend(input[0]);	  // new Friend instances from retrieved id on file
 			Friend f2 = new Friend(input[1]);
 
-			if(net.contains(f1))
+			if (net.contains(f1))
 				f1 = (Friend) net.get(net.indexOf(f1));      // retrieves full Friend data from network corresponding to the previous ID
 			if (net.contains(f2))
 				f2 = (Friend) net.get(net.indexOf(f2));
